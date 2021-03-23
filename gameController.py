@@ -117,3 +117,11 @@ class GameController():
 
 	def playerInteraction(self):
 		pass
+
+	# Minigame 1 interactions
+	def minigame1Interaction(self):
+		pass
+
+	def player1Interaction(self):
+		pass
+	#
