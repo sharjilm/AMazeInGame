@@ -22,7 +22,6 @@ window = pygame.display.set_mode((height,width),pygame.RESIZABLE)
 pygame.display.set_caption('AMazeInGame!')
 screen = pygame.display.get_surface()
 screen.convert_alpha()
-screen.fill((0,0,0))
 #clock = pygame.time.Clock()
 
 class GameDisplay():
@@ -43,8 +42,13 @@ class GameDisplay():
         self.mgd = minigameData
         self.drawMinigame()
         self.drawPlayer()
+        pygame.display.flip()
+
 
     def drawMap(self):
+        #print("drawmap")
+
+        screen.fill((0,0,0))
         for i in range(self.md.height):
             for j in range(self.md.width):
                 if (self.md.tiles[i][j] == '0'):
@@ -54,3 +58,13 @@ class GameDisplay():
 
     def drawPlayer(self):
         pygame.draw.rect(screen,(0,255,0),(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
+
+    def drawMinigame(self):
+        #print("drawminigame")
+        screen.fill((0,0,0))
+        for i in range(self.mgd.height):
+            for j in range(self.mgd.width):
+                if (self.mgd.tiles[i][j] == '0'):
+                    pygame.draw.rect(screen,(255,255,255) ,(30*i,30*j,30, 30))
+                else:
+                    pygame.draw.rect(screen,(0,0,0) ,(30*i,30*j,30, 30))
