@@ -7,10 +7,11 @@ import pygame
 # import math
 #Own Files
 import map
-#import minigame
+import minigame
+import minigameContainer
 import player
 import mapController
-#import minigameController
+import minigameController
 import playerController
 import gameDisplay
 #import dataTypes
@@ -22,7 +23,7 @@ import gameDisplay
 # pygame.display.set_caption('AMazeInGame!')
 # screen = pygame.display.get_surface()
 # screen.convert_alpha()
-clock = pygame.time.Clock()
+# clock = pygame.time.Clock()
 
 class GameController():
 	def __init__(self):
@@ -32,14 +33,14 @@ class GameController():
 
 		self.md = map.MapData()
 		self.pd = player.PlayerData()
-		#self.mgd = minigame.PlayerData()
+		self.mgd = minigameContainer.MinigameData()
 
 		print("here")
 
 		self.mc = mapController.MapController()
 		print("how")
 		self.pc = playerController.PlayerController()
-		#self.mgc = minigameController.MinigameController()
+		self.mgc = minigameController.MinigameController()
 
 		print("why")
 
@@ -67,12 +68,13 @@ class GameController():
 		self.mgc.pauseMinigame()
 
 	def sendPlayerData(self, playerData):
-		self.md = self.mc.fetchMapData()
 		self.pd = playerData
 
 		if self.inMap:
+			self.md = self.mc.fetchMapData()
 			self.pmInteraction()
 		else:
+			self.mgd = self.mgc.fetchMinigameData(self.minigameNum)
 			self.pmgInteraction()
 
 	def sendMapData(self, mapData):
@@ -103,17 +105,27 @@ class GameController():
 		self.playerInteraction()
 		self.minigameInteraction()
 
-		self.mgc.updateMinigameData(self.mgd)
+		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
 
-		if not(self.inMap):
-			self.mgc.exitMinigame()
+		self.disp.displayMinigame(self.pd, self.mgd)
+
+
+		#if not(self.inMap):
+		#	self.mgc.exitMinigame()
 
 	def mapInteraction(self):
+		if self.pd.x == 2 and self.pd.y == 2 and self.inMap:
+			print("enter minigame")
+			self.inMap = False
+			self.minigameNum = 0
 		pass
 
 	def minigameInteraction(self):
+		if self.pd.x == 0 and self.pd.y == 0 and not(self.inMap):
+			print("exit minigame")
+			self.inMap = True
+			self.minigameNum = -1
 		pass
-
 	def playerInteraction(self):
 		pass
