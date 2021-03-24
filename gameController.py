@@ -168,10 +168,18 @@ class GameController():
 
 		for i in self.mgd.bots:
 			if i.timer == 0:
-				i.x += i.path[i.p][0]
-				i.y += i.path[i.p][1]
-				i.p += 1
-				if i.p == i.n: i.p = 0
+				x = i.path[0][0]
+				y = i.path[0][1]
+				p = ((x / abs(x)) if x != 0 else 0, (y / abs(y)) if y != 0 else 0)
+				i.path[0][0] -= p[0]
+				i.path[0][1] -= p[1]
+				if i.path[0] == [0, 0]:
+					del i.path[0]
+					if i.path == []:
+						for j in i.track:
+							i.path.append(j.copy())
+				i.x += p[0]
+				i.y += p[1]
 				i.timer = i.cd
 			else:
 				i.timer -= 1
