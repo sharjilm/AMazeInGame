@@ -1,6 +1,6 @@
 import pygame
 #Standard lib
-# import os
+import os
 # import sys
 # import time
 # import random
@@ -14,6 +14,7 @@ import player
 # import playerController
 # import gamedisplay
 #import dataTypes
+import font
 
 pygame.init()
 height = 300
@@ -29,6 +30,7 @@ class GameDisplay():
         self.pd = map.MapData()
         self.md = player.PlayerData()
         #self.mgd = minigame.MinigameData()
+        self.textfont = pygame.image.load('resources%s%s' % (os.sep, 'font-12x16.png'))
 
     def displayMap(self, playerData, mapData):
         self.pd = playerData
@@ -61,10 +63,23 @@ class GameDisplay():
 
     def drawMinigame(self):
         #print("drawminigame")
-        screen.fill((0,0,0))
+        screen.fill((255,255,255))
         for i in range(self.mgd.height):
             for j in range(self.mgd.width):
                 if (self.mgd.tiles[i][j] == '0'):
-                    pygame.draw.rect(screen,(255,255,255) ,(30*i,30*j,30, 30))
+                    pygame.draw.rect(screen,(255,255,255) ,(30*j,30*i,30, 30))
+                elif (self.mgd.tiles[i][j] == 'w'):
+                    pygame.draw.rect(screen,(0,0,255) ,(30*j,30*i,30, 30))
+                    self.drawText("w", 30*j,30*i)
+
                 else:
-                    pygame.draw.rect(screen,(0,0,0) ,(30*i,30*j,30, 30))
+                    pygame.draw.rect(screen,(0,0,0) ,(30*j,30*i,30, 30))
+
+        for i in self.mgd.bots:
+            pygame.draw.rect(screen,(255,0,0),(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
+
+    def drawText(self, s, x, y):
+        fontsize = font.size(s)
+        result = pygame.Surface((fontsize[0], fontsize[1]), pygame.SRCALPHA)
+        result.blit(font.render(self.textfont,s,(255,255,255,255)), (3,3))
+        screen.blit(result,(x,y))

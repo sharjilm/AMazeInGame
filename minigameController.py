@@ -8,10 +8,11 @@
 #Own Files
 #import GameController
 import minigame
+import minigameContainer
 
 class MinigameController():
     def __init__(self):
-        self.mgd = minigame.MinigameData()
+        self.mgd = minigameContainer.MinigameData()
         self.mg = minigame.Minigame()
         self.gc = 0
         self.minigameNum = -1

@@ -90,7 +90,7 @@ class GameController():
 		self.pmgInteraction()
 
 	def pmInteraction(self):
-		self.playerInteraction()
+		self.playerMInteraction()
 		self.mapInteraction()
 
 		self.mc.updateMapData(self.md)
@@ -102,8 +102,8 @@ class GameController():
 			self.mgc.startMinigame(self.minigameNum)
 
 	def pmgInteraction(self):
-		self.playerInteraction()
-		self.minigameInteraction()
+		self.playerMgInteraction()
+		self.minigame3Interaction()
 
 		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
@@ -119,21 +119,61 @@ class GameController():
 			print("enter minigame")
 			self.inMap = False
 			self.minigameNum = 0
+			self.pd.x = 0
+			self.pd.y = 0
 		pass
 
 	def minigameInteraction(self):
-		if self.pd.x == 0 and self.pd.y == 0 and not(self.inMap):
+
+		# exit minigame
+		if self.pd.x == 4 and self.pd.y == 4 and not(self.inMap):
 			print("exit minigame")
 			self.inMap = True
 			self.minigameNum = -1
-		pass
-	def playerInteraction(self):
-		pass
 
-	# Minigame 1 interactions
-	def minigame1Interaction(self):
-		pass
+	def playerMInteraction(self):
 
-	def player1Interaction(self):
-		pass
-	#
+		#player movement in map
+		x = self.pd.x + self.pd.xs
+		y = self.pd.y + self.pd.ys
+		if x >= 0 and x < self.md.width and y >= 0 and y < self.md.height and self.md.tiles[x][y] != 'w':
+			self.pd.x += self.pd.xs
+			self.pd.y += self.pd.ys
+
+		self.pd.xs = 0
+		self.pd.ys = 0
+
+	def playerMgInteraction(self):
+
+		#player movement in minigame
+
+		x = self.pd.x + self.pd.xs
+		y = self.pd.y + self.pd.ys
+		if x >= 0 and x < self.mgd.width and y >= 0 and y < self.mgd.height and self.mgd.tiles[y][x] != 'w':
+			self.pd.x += self.pd.xs
+			self.pd.y += self.pd.ys
+
+		self.pd.xs = 0
+		self.pd.ys = 0
+
+	def minigame3Interaction(self):
+
+		# exit minigame
+		if self.pd.x == 4 and self.pd.y == 4 and not(self.inMap):
+			print("exit minigame")
+			self.inMap = True
+			self.minigameNum = -1
+
+		# run bots
+
+		for i in self.mgd.bots:
+			if i.timer == 0:
+				i.x += i.path[i.p][0]
+				i.y += i.path[i.p][1]
+				i.p += 1
+				if i.p == i.n: i.p = 0
+				i.timer = i.cd
+			else:
+				i.timer -= 1
+
+

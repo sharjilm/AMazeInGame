@@ -58,13 +58,13 @@ class PlayerController():
 	def move(self, key):
 		self.pd = self.p.readPlayer()
 		if key == 'U':
-			self.pd.y = self.pd.y - 1
+			self.pd.ys = -1
 		elif key == 'D':
-			self.pd.y = self.pd.y + 1
+			self.pd.ys = 1
 		elif key == 'L':
-			self.pd.x = self.pd.x - 1
+			self.pd.xs = -1
 		elif key == 'R':
-			self.pd.x = self.pd.x + 1
+			self.pd.xs = 1
 
 		#modify movement
 		self.playerChange()
