@@ -15,15 +15,25 @@ import player
 # import gamedisplay
 #import dataTypes
 import font
+from enum import Enum
 
 pygame.init()
-height = 300
-width = 300
+height = 400
+width = 400
 window = pygame.display.set_mode((height,width),pygame.RESIZABLE)
 pygame.display.set_caption('AMazeInGame!')
 screen = pygame.display.get_surface()
 screen.convert_alpha()
 #clock = pygame.time.Clock()
+
+class Colour():
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+    red = (255, 0, 0)
+    green = (0, 255, 0)
+    blue = (0, 0, 255)
+
+
 
 class GameDisplay():
     def __init__(self):
@@ -31,6 +41,7 @@ class GameDisplay():
         self.md = player.PlayerData()
         #self.mgd = minigame.MinigameData()
         self.textfont = pygame.image.load('resources%s%s' % (os.sep, 'font-12x16.png'))
+        self.offset = 30
 
     def displayMap(self, playerData, mapData):
         self.pd = playerData
@@ -42,7 +53,7 @@ class GameDisplay():
     def displayMinigame(self, playerData, minigameData):
         self.pd = playerData
         self.mgd = minigameData
-        self.drawMinigame()
+        self.drawMinigame3()
         self.drawPlayer()
         pygame.display.flip()
 
@@ -50,36 +61,68 @@ class GameDisplay():
     def drawMap(self):
         #print("drawmap")
 
-        screen.fill((0,0,0))
+        screen.fill(Colour.black)
         for i in range(self.md.height):
             for j in range(self.md.width):
                 if (self.md.tiles[i][j] == '0'):
-                    pygame.draw.rect(screen,(255,255,255) ,(30*i,30*j,30, 30))
+                    self.drawRect(screen,Colour.white ,(30*i,30*j,30, 30))
                 else:
-                    pygame.draw.rect(screen,(0,0,0) ,(30*i,30*j,30, 30))
+                    self.drawRect(screen,Colour.black ,(30*i,30*j,30, 30))
 
     def drawPlayer(self):
-        pygame.draw.rect(screen,(0,255,0),(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
+        self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
+        self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
+        self.drawText("score: " + str(self.pd.score), Colour.white, 75, -self.offset)
 
     def drawMinigame(self):
         #print("drawminigame")
-        screen.fill((255,255,255))
+        screen.fill(Colour.white)
         for i in range(self.mgd.height):
             for j in range(self.mgd.width):
                 if (self.mgd.tiles[i][j] == '0'):
-                    pygame.draw.rect(screen,(255,255,255) ,(30*j,30*i,30, 30))
+                    self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
                 elif (self.mgd.tiles[i][j] == 'w'):
-                    pygame.draw.rect(screen,(0,0,255) ,(30*j,30*i,30, 30))
-                    self.drawText("w", 30*j,30*i)
+                    self.drawRect(screen,Colour.blue ,(30*j,30*i,30, 30))
+                    self.drawRect(screen,Colour.white ,(30*j,30*i,15, 15))
+                    self.drawText("w", Colour.red, 30*j,30*i)
 
                 else:
-                    pygame.draw.rect(screen,(0,0,0) ,(30*j,30*i,30, 30))
+                    self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
         for i in self.mgd.bots:
-            pygame.draw.rect(screen,(255,0,0),(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
+            self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
 
-    def drawText(self, s, x, y):
+    def drawMinigame3(self):
+        #print("drawminigame")
+        screen.fill(Colour.black)
+        for i in range(self.mgd.height):
+            for j in range(self.mgd.width):
+                if (self.mgd.tiles[i][j] == '0'):
+                    self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
+                elif (self.mgd.tiles[i][j] == 'w'):
+                    self.drawRect(screen,Colour.blue ,(30*j,30*i,30, 30))
+                    self.drawRect(screen,Colour.white ,(30*j,30*i,15, 15))
+                    self.drawText("w", Colour.red, 30*j,30*i)
+
+                else:
+                    self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
+
+        for i in self.mgd.items:
+            self.drawRect(screen,Colour.white ,(i.x*30,i.y*30,15, 15))
+            self.drawText("i", Colour.red, i.x*30 ,i.y*30)
+
+        for i in self.mgd.bots:
+            self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
+            if i.score >= 0:
+                self.drawText("bot score: " + str(i.score), Colour.white, 225, -self.offset)
+
+    def drawText(self, s, col, x, y):
         fontsize = font.size(s)
         result = pygame.Surface((fontsize[0], fontsize[1]), pygame.SRCALPHA)
-        result.blit(font.render(self.textfont,s,(255,255,255,255)), (3,3))
-        screen.blit(result,(x,y))
+        col = (col[0], col[1], col[2], 255)
+        result.blit(font.render(self.textfont,s,col), (0,0))
+        screen.blit(result,(x,y + self.offset))
+
+    def drawRect(self, scr, col, rect):
+        nRect = (rect[0], rect[1] + self.offset, rect[2], rect[3])
+        pygame.draw.rect(scr, col, nRect)

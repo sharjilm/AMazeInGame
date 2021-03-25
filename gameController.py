@@ -27,34 +27,25 @@ import gameDisplay
 
 class GameController():
 	def __init__(self):
-		self.inMap = True
-		self.minigameNum = -1
-		self.pause = False
-
 		self.md = map.MapData()
 		self.pd = player.PlayerData()
 		self.mgd = minigameContainer.MinigameData()
 
-		print("here")
-
 		self.mc = mapController.MapController()
-		print("how")
 		self.pc = playerController.PlayerController()
 		self.mgc = minigameController.MinigameController()
 
-		print("why")
+		self.inMap = True
+		self.minigameNum = -1
+		self.pause = False
 
 		self.disp = gameDisplay.GameDisplay()
-
-		print("there")
 
 	def startGame(self):
 		self.mc.set(self)
 		self.pc.set(self)
 		self.mc.startMap()
-		print("vvmm")
 		self.pc.startPlayer()
-		print("aaa")
 
 	def exitGame(self):
 		self.mc.exitMap()
@@ -156,6 +147,17 @@ class GameController():
 		self.pd.xs = 0
 		self.pd.ys = 0
 
+		#item pickup
+
+		temp = []
+		for i in self.mgd.items:
+			if (i.x == self.pd.x and i.y == self.pd.y):
+				self.pd.score += i.value
+			else:
+				temp.append(i)
+
+		self.mgd.items = temp
+
 	def minigame3Interaction(self):
 
 		# exit minigame
@@ -171,6 +173,7 @@ class GameController():
 				x = i.path[0][0]
 				y = i.path[0][1]
 				p = ((x / abs(x)) if x != 0 else 0, (y / abs(y)) if y != 0 else 0)
+				p = (p[0] * i.speed, p[1] * i.speed)
 				i.path[0][0] -= p[0]
 				i.path[0][1] -= p[1]
 				if i.path[0] == [0, 0]:
@@ -181,6 +184,15 @@ class GameController():
 				i.x += p[0]
 				i.y += p[1]
 				i.timer = i.cd
+
+				temp = []
+				for j in self.mgd.items:
+					if (j.x == i.x and j.y == i.y):
+						i.score += j.value
+					else:
+						temp.append(j)
+
+				self.mgd.items = temp
 			else:
 				i.timer -= 1
 

@@ -4,9 +4,7 @@ import time
 
 def main():
     gc = gameController.GameController()
-    print("what")
     gc.startGame()
-    print("hmm")
     clock = pygame.time.Clock()
 
 
