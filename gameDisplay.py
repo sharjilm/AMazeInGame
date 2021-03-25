@@ -29,9 +29,11 @@ screen.convert_alpha()
 class Colour():
     black = (0, 0, 0)
     white = (255, 255, 255)
+    gray = (169, 169, 169)
     red = (255, 0, 0)
     green = (0, 255, 0)
     blue = (0, 0, 255)
+    brown = (165, 42, 42)
 
 
 
@@ -82,9 +84,8 @@ class GameDisplay():
                 if (self.mgd.tiles[i][j] == '0'):
                     self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
                 elif (self.mgd.tiles[i][j] == 'w'):
-                    self.drawRect(screen,Colour.blue ,(30*j,30*i,30, 30))
-                    self.drawRect(screen,Colour.white ,(30*j,30*i,15, 15))
-                    self.drawText("w", Colour.red, 30*j,30*i)
+                    self.drawWall((30*j,30*i,30, 30))
+
 
                 else:
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
@@ -100,16 +101,13 @@ class GameDisplay():
                 if (self.mgd.tiles[i][j] == '0'):
                     self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
                 elif (self.mgd.tiles[i][j] == 'w'):
-                    self.drawRect(screen,Colour.blue ,(30*j,30*i,30, 30))
-                    self.drawRect(screen,Colour.white ,(30*j,30*i,15, 15))
-                    self.drawText("w", Colour.red, 30*j,30*i)
+                    self.drawWall((30*j,30*i,30, 30))
 
                 else:
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
         for i in self.mgd.items:
-            self.drawRect(screen,Colour.white ,(i.x*30,i.y*30,15, 15))
-            self.drawText("i", Colour.red, i.x*30 ,i.y*30)
+            self.drawItem(i.name, (i.x*30,i.y*30,30, 30))
 
         for i in self.mgd.bots:
             self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
@@ -126,3 +124,35 @@ class GameDisplay():
     def drawRect(self, scr, col, rect):
         nRect = (rect[0], rect[1] + self.offset, rect[2], rect[3])
         pygame.draw.rect(scr, col, nRect)
+
+    def drawWall(self, rect):
+        self.drawRect(screen,Colour.brown ,rect)
+        for i in range(5):
+            self.drawRect(screen,Colour.gray ,(rect[0], rect[1] + 4 + 6*i, 30, 2))
+
+        for j in range(5):
+            if (j + rect[1]/30) % 2 == 0:
+                offsetx = 4
+            else:
+                offsetx = 8
+            for i in range(3):
+                self.drawRect(screen,Colour.gray ,(rect[0] + offsetx + i*10, rect[1] + j*6, 2, 4))
+
+    def drawItem(self, name, rect):
+        #self.drawRect(screen,Colour.white, rect)
+        #self.drawText("i", Colour.red, rect[0], rect[1])
+        if name == "d":
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6 + self.offset), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2 + self.offset),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6 + self.offset),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2 + self.offset)]
+            col = Colour.blue
+        elif name == "r":
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6 + self.offset), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2 + self.offset),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6 + self.offset),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2 + self.offset)]
+            col = Colour.red     
+        pygame.draw.polygon(screen, col, pts)
+
+
