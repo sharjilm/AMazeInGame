@@ -106,6 +106,9 @@ class GameDisplay():
                 else:
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
+        if self.mgd.end != 0:
+            self.drawExit((self.mgd.exit[0]*30, self.mgd.exit[1]*30, 30, 30))
+
         for i in self.mgd.items:
             self.drawItem(i.name, (i.x*30,i.y*30,30, 30))
 
@@ -122,8 +125,8 @@ class GameDisplay():
         screen.blit(result,(x,y + self.offset))
 
     def drawRect(self, scr, col, rect):
-        nRect = (rect[0], rect[1] + self.offset, rect[2], rect[3])
-        pygame.draw.rect(scr, col, nRect)
+        rect = (rect[0], rect[1] + self.offset, rect[2], rect[3])
+        pygame.draw.rect(scr, col, rect)
 
     def drawWall(self, rect):
         self.drawRect(screen,Colour.brown ,rect)
@@ -138,21 +141,31 @@ class GameDisplay():
             for i in range(3):
                 self.drawRect(screen,Colour.gray ,(rect[0] + offsetx + i*10, rect[1] + j*6, 2, 4))
 
+    def drawPoly(self, scr, col, pts):
+        for i in range(len(pts)):
+            pts[i] = (pts[i][0], pts[i][1] + self.offset)
+        pygame.draw.polygon(scr, col, pts)
+
     def drawItem(self, name, rect):
         #self.drawRect(screen,Colour.white, rect)
         #self.drawText("i", Colour.red, rect[0], rect[1])
         if name == "d":
-            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6 + self.offset), 
-                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2 + self.offset),
-                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6 + self.offset),
-                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2 + self.offset)]
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.blue
         elif name == "r":
-            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6 + self.offset), 
-                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2 + self.offset),
-                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6 + self.offset),
-                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2 + self.offset)]
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.red     
-        pygame.draw.polygon(screen, col, pts)
+        self.drawPoly(screen, col, pts)
+
+    def drawExit(self, rect):
+        star = pygame.image.load('resources%s%s' % (os.sep, 'star.png'))
+        screen.blit(star, (rect[0], rect[1] + self.offset))
+
 
 

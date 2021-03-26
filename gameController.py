@@ -102,8 +102,11 @@ class GameController():
 		self.disp.displayMinigame(self.pd, self.mgd)
 
 
-		#if not(self.inMap):
-		#	self.mgc.exitMinigame()
+		if self.inMap:
+			self.mgc.exitMinigame()
+			self.minigameNum = -1
+			self.pd.x = 0
+			self.pd.y = 0
 
 	def mapInteraction(self):
 		if self.pd.x == 2 and self.pd.y == 2 and self.inMap:
@@ -136,6 +139,11 @@ class GameController():
 
 	def playerMgInteraction(self):
 
+		#exit minigame
+		if self.mgd.end != 0 and self.pd.x == self.mgd.exit[0] and self.pd.y == self.mgd.exit[1]:
+			print("exit minigame")
+			self.inMap = True
+
 		#player movement in minigame
 
 		x = self.pd.x + self.pd.xs
@@ -143,6 +151,8 @@ class GameController():
 		if x >= 0 and x < self.mgd.width and y >= 0 and y < self.mgd.height and self.mgd.tiles[y][x] != 'w':
 			self.pd.x += self.pd.xs
 			self.pd.y += self.pd.ys
+			if self.pd.xs != 0 and self.pd.ys != 0:
+				print("move")
 
 		self.pd.xs = 0
 		self.pd.ys = 0
@@ -158,13 +168,15 @@ class GameController():
 
 		self.mgd.items = temp
 
+
 	def minigame3Interaction(self):
 
-		# exit minigame
-		if self.pd.x == 4 and self.pd.y == 4 and not(self.inMap):
-			print("exit minigame")
-			self.inMap = True
-			self.minigameNum = -1
+		# end minigame
+		if self.mgd.items == []:
+			if self.pd.score >= self.mgd.bots[0].score:
+				self.mgd.end = 1
+			else:
+				self.mgd.end = -1
 
 		# run bots
 
@@ -195,5 +207,7 @@ class GameController():
 				self.mgd.items = temp
 			else:
 				i.timer -= 1
+
+			
 
 

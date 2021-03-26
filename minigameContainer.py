@@ -5,6 +5,7 @@ class MinigameData():
         self.tiles = [['0', '1', '0', '1', '0'], ['1', '0', '1', '0', 'w']]
         self.stars = [()]
         self.exit = ()
+        self.end = 0
 
         self.bots = []
         self.items = []
@@ -54,19 +55,20 @@ def makeMg3():
 
     b = Bot()
     b.name = "1"
-    b.track = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-    for j in b.track:
-        b.path.append(j.copy())
-    #b.n = 4
-    mg.bots.append(b)
-    b = Bot()
-    b.name = "2"
     b.track = [[6, 0], [0, 6], [-6, 0], [0, -6]]
     b.speed = 2
     for j in b.track:
         b.path.append(j.copy())
     b.score = 0
     mg.bots.append(b)
+
+    b = Bot()
+    b.name = "2"
+    b.track = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+    for j in b.track:
+        b.path.append(j.copy())
+    mg.bots.append(b)
+
 
     i = Item()
     i.name = "d"
@@ -75,32 +77,34 @@ def makeMg3():
     i.y = 3
     mg.items.append(i)
 
-    i = Item()
-    i.name = "d"
-    i.value = 100
-    i.x = 8
-    i.y = 1
-    mg.items.append(i)
+    # i = Item()
+    # i.name = "d"
+    # i.value = 100
+    # i.x = 8
+    # i.y = 1
+    # mg.items.append(i)
 
-    i = Item()
-    i.name = "r"
-    i.value = 200
-    i.x = 8
-    i.y = 8
-    mg.items.append(i)
+    # i = Item()
+    # i.name = "r"
+    # i.value = 200
+    # i.x = 8
+    # i.y = 8
+    # mg.items.append(i)
 
-    i = Item()
-    i.name = "r"
-    i.value = 200
-    i.x = 0
-    i.y = 8
-    mg.items.append(i)
+    # i = Item()
+    # i.name = "r"
+    # i.value = 200
+    # i.x = 0
+    # i.y = 8
+    # mg.items.append(i)
 
-    i = Item()
-    i.name = "r"
-    i.value = 200
-    i.x = 2
-    i.y = 0
-    mg.items.append(i)
+    # i = Item()
+    # i.name = "r"
+    # i.value = 200
+    # i.x = 2
+    # i.y = 0
+    # mg.items.append(i)
+
+    mg.exit = (0, 0)
 
     return mg
