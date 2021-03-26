@@ -71,6 +71,10 @@ class GameDisplay():
                 else:
                     self.drawRect(screen,Colour.black ,(30*i,30*j,30, 30))
 
+
+        for i in self.md.stars:
+            self.drawStar((i[0][0]*30, i[0][1]*30, 30, 30))
+
     def drawPlayer(self):
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
         self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
@@ -107,7 +111,7 @@ class GameDisplay():
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
         if self.mgd.end != 0:
-            self.drawExit((self.mgd.exit[0]*30, self.mgd.exit[1]*30, 30, 30))
+            self.drawExit((self.mgd.exit[0]*30, self.mgd.exit[1]*30, 30, 30), self.mgd.end)
 
         for i in self.mgd.items:
             self.drawItem(i.name, (i.x*30,i.y*30,30, 30))
@@ -163,7 +167,14 @@ class GameDisplay():
             col = Colour.red     
         self.drawPoly(screen, col, pts)
 
-    def drawExit(self, rect):
+    def drawExit(self, rect, win):
+        if win == 1:
+            exit = pygame.image.load('resources%s%s' % (os.sep, 'exitWin.png'))
+        else:
+            exit = pygame.image.load('resources%s%s' % (os.sep, 'exitLose.png'))
+        screen.blit(exit, (rect[0], rect[1] + self.offset))
+
+    def drawStar(self, rect):
         star = pygame.image.load('resources%s%s' % (os.sep, 'star.png'))
         screen.blit(star, (rect[0], rect[1] + self.offset))
 

@@ -26,10 +26,8 @@ class MinigameController():
         self.mgd = self.mg.g[minigameNum]
         self.minigameNum = minigameNum
 
-        pass
-
     def exitMinigame(self):
-        pass
+        self.mg.reset(self.minigameNum)
 
     def pauseMinigame(self):
         self.pause = not(self.pause)

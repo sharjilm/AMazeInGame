@@ -94,7 +94,8 @@ class GameController():
 
 	def pmgInteraction(self):
 		self.playerMgInteraction()
-		self.minigame3Interaction()
+		if self.minigameNum == 2:
+			self.minigame2Interaction()
 
 		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
@@ -107,14 +108,16 @@ class GameController():
 			self.minigameNum = -1
 			self.pd.x = 0
 			self.pd.y = 0
+			self.pd.score = 0
 
 	def mapInteraction(self):
-		if self.pd.x == 2 and self.pd.y == 2 and self.inMap:
-			print("enter minigame")
-			self.inMap = False
-			self.minigameNum = 0
-			self.pd.x = 0
-			self.pd.y = 0
+		for i in self.md.stars:
+			if self.pd.x == i[0][0] and self.pd.y == i[0][1] and self.inMap:
+				print("enter minigame ", i[1])
+				self.inMap = False
+				self.minigameNum = i[1]
+				self.pd.x = 0
+				self.pd.y = 0
 		pass
 
 	def minigameInteraction(self):
@@ -169,7 +172,7 @@ class GameController():
 		self.mgd.items = temp
 
 
-	def minigame3Interaction(self):
+	def minigame2Interaction(self):
 
 		# end minigame
 		if self.mgd.items == []:

@@ -3,8 +3,12 @@ import minigameContainer
 class Minigame():
     def __init__(self):
         #self.md = MinigameData()
-        self.g = [minigameContainer.MinigameData()]
-        self.g = [minigameContainer.makeMg3()]
+        #self.g = [minigameContainer.MinigameData()]
+        self.g = [minigameContainer.MinigameData(), 
+                minigameContainer.MinigameData(),
+                minigameContainer.makeMg2(), 
+                minigameContainer.MinigameData(), 
+                minigameContainer.MinigameData()]
 
 
     def readMinigame(self, minigameNum):
@@ -12,3 +16,7 @@ class Minigame():
 
     def writeMinigame(self, minigameNum, minigameData):
         self.g[minigameNum] = minigameData
+
+    def reset(self, minigameNum):
+        if minigameNum == 2:
+            self.g[minigameNum] = minigameContainer.makeMg2()

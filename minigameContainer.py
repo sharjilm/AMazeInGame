@@ -4,6 +4,7 @@ class MinigameData():
         self.height = 2
         self.tiles = [['0', '1', '0', '1', '0'], ['1', '0', '1', '0', 'w']]
         self.stars = [()]
+        self.entrance = ()
         self.exit = ()
         self.end = 0
 
@@ -36,7 +37,7 @@ class Item():
         self.height = 10
         self.offset = 10
 
-def makeMg3():
+def makeMg2():
     mg = MinigameData()
     mg.width = 10
     mg.height = 10
@@ -60,6 +61,7 @@ def makeMg3():
     for j in b.track:
         b.path.append(j.copy())
     b.score = 0
+    b.cd = 15
     mg.bots.append(b)
 
     b = Bot()
@@ -74,7 +76,7 @@ def makeMg3():
     i.name = "d"
     i.value = 100
     i.x = 0
-    i.y = 3
+    i.y = 2
     mg.items.append(i)
 
     # i = Item()
@@ -105,6 +107,7 @@ def makeMg3():
     # i.y = 0
     # mg.items.append(i)
 
+    mg.entrance = (0, 0)
     mg.exit = (0, 0)
 
     return mg
