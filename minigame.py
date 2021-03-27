@@ -7,7 +7,7 @@ class Minigame():
         self.g = [minigameContainer.MinigameData(), 
                 minigameContainer.MinigameData(),
                 minigameContainer.makeMg2(), 
-                minigameContainer.MinigameData(), 
+                minigameContainer.makeMg3(),
                 minigameContainer.MinigameData()]
 
 
@@ -20,3 +20,5 @@ class Minigame():
     def reset(self, minigameNum):
         if minigameNum == 2:
             self.g[minigameNum] = minigameContainer.makeMg2()
+        elif minigameNum == 3:
+            self.g[minigameNum] = minigameContainer.makeMg3()

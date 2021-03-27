@@ -6,14 +6,15 @@ import pygame
 # import random
 # import math
 #Own Files
-import map
-import minigame
-import minigameContainer
-import player
-import mapController
-import minigameController
-import playerController
-import gameDisplay
+from map import *
+from minigame import *
+from minigameContainer import *
+from player import *
+from mapController import *
+from minigameController import *
+from playerController import *
+from gameDisplay import *
+import random
 #import dataTypes
 
 # pygame.init()
@@ -27,19 +28,19 @@ import gameDisplay
 
 class GameController():
 	def __init__(self):
-		self.md = map.MapData()
-		self.pd = player.PlayerData()
-		self.mgd = minigameContainer.MinigameData()
+		self.md = MapData()
+		self.pd = PlayerData()
+		self.mgd = MinigameData()
 
-		self.mc = mapController.MapController()
-		self.pc = playerController.PlayerController()
-		self.mgc = minigameController.MinigameController()
+		self.mc = MapController()
+		self.pc = PlayerController()
+		self.mgc = MinigameController()
 
 		self.inMap = True
 		self.minigameNum = -1
 		self.pause = False
 
-		self.disp = gameDisplay.GameDisplay()
+		self.disp = GameDisplay()
 
 	def startGame(self):
 		self.mc.set(self)
@@ -96,6 +97,8 @@ class GameController():
 		self.playerMgInteraction()
 		if self.minigameNum == 2:
 			self.minigame2Interaction()
+		elif self.minigameNum == 3:
+			self.minigame3Interaction()
 
 		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
@@ -211,6 +214,35 @@ class GameController():
 			else:
 				i.timer -= 1
 
-			
+	def minigame3Interaction(self):
 
+		# can have projectiles go through walls, or not, or break walls !!
+		#projectiles = []
+		# if timer gets to 0 and alive, end = 1, else -1
+		self.mgd.end = 1
 
+		if self.mgd.timer >= 0:
+			self.mgd.timer -= 1
+
+		if self.mgd.projTimer == 0:
+			self.mgd.projectiles.append(Projectile())
+			self.mgd.projTimer = self.mgd.projCD
+		else:
+			self.mgd.projTimer -= 1
+
+		temp = []
+
+		for i in self.mgd.projectiles:
+			if i.timer == 0:
+				i.x += i.xs
+				i.y += i.ys
+				i.dist += 1
+				i.timer = i.cd
+				print("proj len", len(self.mgd.projectiles))
+			else:
+				i.timer -= 1
+
+			if i.dist < 11:
+				temp.append(i)
+
+		self.mgd.projectiles = temp

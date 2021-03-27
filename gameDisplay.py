@@ -34,6 +34,7 @@ class Colour():
     green = (0, 255, 0)
     blue = (0, 0, 255)
     brown = (165, 42, 42)
+    bassel = (200, 0, 80)
 
 
 
@@ -55,7 +56,7 @@ class GameDisplay():
     def displayMinigame(self, playerData, minigameData):
         self.pd = playerData
         self.mgd = minigameData
-        self.drawMinigame3()
+        self.drawMinigame()
         self.drawPlayer()
         pygame.display.flip()
 
@@ -80,24 +81,24 @@ class GameDisplay():
         self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
         self.drawText("score: " + str(self.pd.score), Colour.white, 75, -self.offset)
 
+    # def drawMinigame(self):
+    #     #print("drawminigame")
+    #     screen.fill(Colour.white)
+    #     for i in range(self.mgd.height):
+    #         for j in range(self.mgd.width):
+    #             if (self.mgd.tiles[i][j] == '0'):
+    #                 self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
+    #             elif (self.mgd.tiles[i][j] == 'w'):
+    #                 self.drawWall((30*j,30*i,30, 30))
+
+
+    #             else:
+    #                 self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
+
+    #     for i in self.mgd.bots:
+    #         self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
+
     def drawMinigame(self):
-        #print("drawminigame")
-        screen.fill(Colour.white)
-        for i in range(self.mgd.height):
-            for j in range(self.mgd.width):
-                if (self.mgd.tiles[i][j] == '0'):
-                    self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
-                elif (self.mgd.tiles[i][j] == 'w'):
-                    self.drawWall((30*j,30*i,30, 30))
-
-
-                else:
-                    self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
-
-        for i in self.mgd.bots:
-            self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
-
-    def drawMinigame3(self):
         #print("drawminigame")
         screen.fill(Colour.black)
         for i in range(self.mgd.height):
@@ -120,6 +121,12 @@ class GameDisplay():
             self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
             if i.score >= 0:
                 self.drawText("bot score: " + str(i.score), Colour.white, 225, -self.offset)
+        
+        for i in self.mgd.projectiles:
+            self.drawRect(screen,Colour.bassel,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
+
+        if self.mgd.timer >= 0:
+            self.drawText("time: " + str(int(self.mgd.timer/30)), Colour.white, 225, -self.offset)
 
     def drawText(self, s, col, x, y):
         fontsize = font.size(s)
