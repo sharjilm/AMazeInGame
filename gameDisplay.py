@@ -76,7 +76,7 @@ class GameDisplay():
         for i in self.md.stars:
             self.drawStar((i[0][0]*30, i[0][1]*30, 30, 30))
 
-        if self.pd.stars == 1:
+        if self.pd.stars == 5:
             self.drawExit((self.md.exit[0]*30, self.md.exit[1]*30, 30, 30), 1)
 
         self.drawCamera()

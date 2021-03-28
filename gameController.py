@@ -138,7 +138,7 @@ class GameController():
 				if self.minigameNum == 2:
 					self.pd.score = 0
 
-		if self.pd.stars == 1 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
+		if self.pd.stars == 5 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			print("WIN")
 			exit()
 
