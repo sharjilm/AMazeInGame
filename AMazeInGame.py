@@ -12,7 +12,6 @@ def main():
         gc.pc.timeUpPlayer()
         #print("who")
         clock.tick(30) # 30fps
-        pass
 
 main()
         

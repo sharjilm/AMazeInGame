@@ -5,7 +5,7 @@ class PlayerData():
         self.xs = 0
         self.ys = 0
         self.hp = 0
-        self.progress = 0
+        self.stars = 0
         self.score = 0
 
 class Player():
