@@ -76,6 +76,13 @@ class GameDisplay():
         for i in self.md.stars:
             self.drawStar((i[0][0]*30, i[0][1]*30, 30, 30))
 
+        for i in range(self.pd.stars):
+            self.drawStar((i*30 + 200, -self.offset + 5, 20, 20))
+
+        if self.pd.stars == 1:
+            self.drawExit((self.md.exit[0]*30, self.md.exit[1]*30, 30, 30), 1)
+
+
     def drawPlayer(self):
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
         self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
@@ -183,6 +190,7 @@ class GameDisplay():
 
     def drawStar(self, rect):
         star = pygame.image.load('resources%s%s' % (os.sep, 'star.png'))
+        star = pygame.transform.scale(star, (rect[2],rect[3]))
         screen.blit(star, (rect[0], rect[1] + self.offset))
 
 

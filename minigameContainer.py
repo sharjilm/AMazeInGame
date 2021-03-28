@@ -2,10 +2,10 @@ class MinigameData():
     def __init__(self):
         self.width = 5
         self.height = 2
-        self.tiles = [['0', '1', '0', '1', '0'], ['1', '0', '1', '0', 'w']]
+        self.tiles = [['0', '1', '0', '1', '0'], ['1', '0', '1', 'w', '1']]
         self.stars = [()]
-        self.entrance = ()
-        self.exit = ()
+        self.entrance = (0, 0)
+        self.exit = (4, 1)
         self.end = 0
 
         self.bots = []
@@ -152,5 +152,26 @@ def makeMg3():
 
     mg.entrance = (1, 1)
     mg.exit = (1, 1)
+
+    return mg
+
+def makeMg0():
+    mg = MinigameData()
+
+    mg.end = -1
+
+    return mg
+
+def makeMg1():
+    mg = MinigameData()
+
+    mg.end = -1
+
+    return mg
+
+def makeMg4():
+    mg = MinigameData()
+
+    mg.end = -1
 
     return mg

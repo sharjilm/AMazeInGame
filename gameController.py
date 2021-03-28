@@ -95,10 +95,16 @@ class GameController():
 
 	def pmgInteraction(self):
 		self.playerMgInteraction()
-		if self.minigameNum == 2:
+		if self.minigameNum == 0:
+			self.minigame0Interaction()
+		elif self.minigameNum == 1:
+			self.minigame1Interaction()
+		elif self.minigameNum == 2:
 			self.minigame2Interaction()
 		elif self.minigameNum == 3:
 			self.minigame3Interaction()
+		elif self.minigameNum == 4:
+			self.minigame4Interaction()
 
 		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
@@ -108,6 +114,12 @@ class GameController():
 
 		if self.inMap:
 			self.mgc.exitMinigame()
+			if self.mgd.end == 1:
+				temp = []
+				for i in self.md.stars:
+					if i[1] != self.minigameNum:
+						temp.append(i)
+				self.md.stars = temp
 			self.minigameNum = -1
 			self.pd.x = 0
 			self.pd.y = 0
@@ -121,7 +133,10 @@ class GameController():
 				self.minigameNum = i[1]
 				self.pd.x = 0
 				self.pd.y = 0
-		pass
+
+		if self.pd.stars == 1 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
+			print("WIN")
+			exit()
 
 	def minigameInteraction(self):
 
@@ -149,6 +164,9 @@ class GameController():
 		if self.mgd.end != 0 and self.pd.x == self.mgd.exit[0] and self.pd.y == self.mgd.exit[1]:
 			print("exit minigame")
 			self.inMap = True
+			if self.mgd.end == 1:
+				self.pd.stars += 1
+				
 
 		#player movement in minigame
 
@@ -246,3 +264,12 @@ class GameController():
 				temp.append(i)
 
 		self.mgd.projectiles = temp
+
+	def minigame0Interaction(self):
+			pass
+
+	def minigame1Interaction(self):
+			pass
+
+	def minigame4Interaction(self):
+			pass
