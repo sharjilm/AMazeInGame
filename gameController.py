@@ -131,8 +131,9 @@ class GameController():
 				print("enter minigame ", i[1])
 				self.inMap = False
 				self.minigameNum = i[1]
-				self.pd.x = 0
-				self.pd.y = 0
+				self.mgd = self.mgc.fetchMinigameData(self.minigameNum)					
+				self.pd.x = self.mgd.entrance[0]
+				self.pd.y = self.mgd.entrance[1]
 
 		if self.pd.stars == 1 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			print("WIN")
@@ -239,7 +240,7 @@ class GameController():
 		# if timer gets to 0 and alive, end = 1, else -1
 		self.mgd.end = 1
 
-		if self.mgd.timer > 0:
+		if self.mgd.timer >= 0:
 			self.mgd.timer -= 1
 
 		if self.mgd.projTimer == 0:
