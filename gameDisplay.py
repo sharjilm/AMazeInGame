@@ -76,17 +76,42 @@ class GameDisplay():
         for i in self.md.stars:
             self.drawStar((i[0][0]*30, i[0][1]*30, 30, 30))
 
-        for i in range(self.pd.stars):
-            self.drawStar((i*30 + 200, -self.offset + 5, 20, 20))
-
         if self.pd.stars == 1:
             self.drawExit((self.md.exit[0]*30, self.md.exit[1]*30, 30, 30), 1)
+
+        self.drawCamera()
+
+        for i in range(self.pd.stars):
+            self.drawStar((i*30, -self.offset + 5, 20, 20))
+
+    def drawCamera(self):
+        col = (255, 0, 0, 0)
+        c = (self.pd.x*30 + 15, self.pd.y*30 + 15)
+        r = self.pd.stars * 25 + 50
+        s = 500
+        scr = pygame.Surface((s, s), pygame.SRCALPHA)
+        scr.fill((0,0,0,255))
+        c2 = (c[0] - s/2, c[1] - s/2 + self.offset)
+        c = (s/2, s/2 - self.offset)
+        self.drawCircle(scr, col, c, r)
+        screen.blit(scr, c2)
+
+        # scr = pygame.Surface(r, r), pygame.SRCALPHA)
+        # scr.fill((255,255,255,255))
+        # scr.blit(font.render(self.textfont,ent.text,(140,140,180,255)),
+        # (2,2))
+        # w = 150-fontsize[0]/2
+        # scr.blit(result,(w,250))
+    
+    def drawCircle(self, scr, col, c, r):
+        c = (c[0], c[1] + self.offset)
+        pygame.draw.circle(scr, col, c, r)
 
 
     def drawPlayer(self):
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
-        self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
-        self.drawText("score: " + str(self.pd.score), Colour.white, 100, -self.offset)
+        #self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
+        #self.drawText("score: " + str(self.pd.score), Colour.white, 75, -self.offset)
 
     # def drawMinigame(self):
     #     #print("drawminigame")
@@ -118,6 +143,10 @@ class GameDisplay():
                 else:
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
+        self.drawText("hp:" + str(self.pd.hp), Colour.white, 0, -self.offset)
+        if self.pd.score >= 0:
+            self.drawText("score:" + str(self.pd.score), Colour.white, 75, -self.offset)
+
         if self.mgd.end != 0:
             self.drawExit((self.mgd.exit[0]*30, self.mgd.exit[1]*30, 30, 30), self.mgd.end)
 
@@ -127,7 +156,7 @@ class GameDisplay():
         for i in self.mgd.bots:
             self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
             if i.score >= 0:
-                self.drawText("bot score: " + str(i.score), Colour.white, 225, -self.offset)
+                self.drawText("bot score:" + str(i.score), Colour.white, 225, -self.offset)
         
         for i in self.mgd.projectiles:
             self.drawRect(screen,Colour.bassel,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))

@@ -123,7 +123,7 @@ class GameController():
 			self.minigameNum = -1
 			self.pd.x = 0
 			self.pd.y = 0
-			self.pd.score = 0
+			self.pd.score = -1
 
 	def mapInteraction(self):
 		for i in self.md.stars:
@@ -135,6 +135,8 @@ class GameController():
 				self.mgd = self.mgc.fetchMinigameData(self.minigameNum)					
 				self.pd.x = self.mgd.entrance[0]
 				self.pd.y = self.mgd.entrance[1]
+				if self.minigameNum == 2:
+					self.pd.score = 0
 
 		if self.pd.stars == 1 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			print("WIN")
@@ -168,6 +170,10 @@ class GameController():
 			self.inMap = True
 			if self.mgd.end == 1:
 				self.pd.stars += 1
+			# if self.minigameNum == 2:
+			# 	print("scorereset")
+				# self.pd.score = -1
+				# return
 				
 
 		#player movement in minigame
