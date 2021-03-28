@@ -1,3 +1,5 @@
+import random
+
 class MinigameData():    
     def __init__(self):
         self.width = 5
@@ -11,23 +13,39 @@ class MinigameData():
         self.bots = []
         self.items = []
         self.projectiles = []
-        self.projCD = 90
+        self.projCD = 10
         self.projTimer = 0
         self.timer = -1 # this refers to minigame 3's main timer
 
 class Projectile():
     def __init__(self):
         self.name = ""
-        self.x = -1
-        self.y = 5
-        self.xs = 1
-        self.ys = 0
+
+        # self.randomSpeed = random.randint(1, 3)
+        self.randomSpeed = 0.25 # #ofBlocks to move/movement update (MUST BE POWER OF 2 (floating point comparison))
+        self.randomPosition = random.randint(0, 9)
+
+        # tup is (direction, x, y, xs, ys)
+        self.tup = (
+        (-1, self.randomPosition, self.randomSpeed, 0), 
+        (self.randomPosition, -1, 0, self.randomSpeed), 
+        (10, self.randomPosition, -1*self.randomSpeed, 0), 
+        (self.randomPosition, 10, 0, -1*self.randomSpeed))
+
+        self.choice = self.tup[random.randint(0, 3)]
+
+        self.x = self.choice[0]
+        self.y = self.choice[1]
+        self.xs = self.choice[2]
+        self.ys = self.choice[3]
+
         self.width = 10
         self.height = 10
         self.offset = 10
-        self.cd = 30
+        self.cd = 5 # Projectiles will move every 'self.cd' frames (was 5)
         self.timer = 0
         self.dist = 0
+        self.maxDist = 11 // self.randomSpeed
 
 class Bot():
     def __init__(self):
@@ -135,23 +153,23 @@ def makeMg3():
     mg.width = 10
     mg.height = 10
     mg.tiles = [
-                ['0', '1', '0', '1', '0', '1', '0', '1', '1', '0'], 
-                ['1', '0', '1', '0', '1', '1', '1', '1', '1', '0'], 
-                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '0'], 
-                ['1', '0', '1', '0', '1', '1', '1', '1', '1', '0'], 
-                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '0'], 
-                ['1', '0', '1', '0', '1', '0', '1', '1', '1', '0'], 
-                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '0'], 
-                ['1', '1', '1', '0', '1', '0', '1', '0', '1', '0'], 
-                ['0', '1', '0', '1', '0', '1', '1', '1', '0', '0'], 
-                ['1', '1', '1', '1', '1', '1', '1', '1', '1', '0']
+                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '1'], 
+                ['1', 'w', 'w', '0', 'w', '0', '1', '0', '1', '0'], 
+                ['0', 'w', '0', '1', 'w', '1', '0', 'w', 'w', 'w'], 
+                ['1', 'w', 'w', '0', 'w', '0', '1', 'w', '1', '0'], 
+                ['0', '1', '0', '1', '0', '1', '0', 'w', '0', '1'], 
+                ['1', '0', '1', '0', '1', '0', '1', 'w', '1', '0'], 
+                ['0', '1', '0', '1', 'w', 'w', 'w', 'w', '0', '1'], 
+                ['1', '0', '1', '0', 'w', '0', '1', '0', '1', '0'], 
+                ['0', 'w', '0', '1', 'w', '1', '0', '1', '0', '1'], 
+                ['1', 'w', '1', '0', '1', '0', '1', '0', '1', '0']
                 ]
 
     mg.projectiles = []
     mg.timer = 30 * 30
 
-    mg.entrance = (1, 1)
-    mg.exit = (1, 1)
+    mg.entrance = (0, 0)
+    mg.exit = (9, 0)
 
     return mg
 

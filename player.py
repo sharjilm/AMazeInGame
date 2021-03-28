@@ -4,7 +4,8 @@ class PlayerData():
         self.y = 0
         self.xs = 0
         self.ys = 0
-        self.hp = 0
+        self.maxHP = 10 # should be 100 (or something higher than 10)
+        self.hp = self.maxHP
         self.stars = 0
         self.score = 0
 

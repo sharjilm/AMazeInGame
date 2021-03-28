@@ -129,6 +129,7 @@ class GameController():
 		for i in self.md.stars:
 			if self.pd.x == i[0][0] and self.pd.y == i[0][1] and self.inMap:
 				print("enter minigame ", i[1])
+				self.pd.hp = self.pd.maxHP
 				self.inMap = False
 				self.minigameNum = i[1]
 				self.mgd = self.mgc.fetchMinigameData(self.minigameNum)					
@@ -235,13 +236,23 @@ class GameController():
 
 	def minigame3Interaction(self):
 
+		# assigning player data
+		# pd = self.pd
+
 		# can have projectiles go through walls, or not, or break walls !!
 		#projectiles = []
 		# if timer gets to 0 and alive, end = 1, else -1
-		self.mgd.end = 1
+		#self.mgd.end = 1
 
-		if self.mgd.timer >= 0:
+		if self.pd.hp <= 0:
+			self.mgd.exit = (self.pd.x, self.pd.y)
+			self.mgd.end = -1
+
+		if self.mgd.timer > 0:
 			self.mgd.timer -= 1
+		# weird edge case where player dies on same frame as timer runs out
+		elif self.pd.hp > 0:
+			self.mgd.end = 1
 
 		if self.mgd.projTimer == 0:
 			self.mgd.projectiles.append(Projectile())
@@ -261,8 +272,11 @@ class GameController():
 			else:
 				i.timer -= 1
 
-			if i.dist < 11:
-				temp.append(i)
+			if i.dist < i.maxDist:
+				if self.pd.x == i.x and self.pd.y == i.y:
+					self.pd.hp -= 10
+				else:
+					temp.append(i)
 
 		self.mgd.projectiles = temp
 

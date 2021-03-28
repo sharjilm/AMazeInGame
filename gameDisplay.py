@@ -86,7 +86,7 @@ class GameDisplay():
     def drawPlayer(self):
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
         self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
-        self.drawText("score: " + str(self.pd.score), Colour.white, 75, -self.offset)
+        self.drawText("score: " + str(self.pd.score), Colour.white, 100, -self.offset)
 
     # def drawMinigame(self):
     #     #print("drawminigame")
