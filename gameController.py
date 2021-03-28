@@ -221,7 +221,7 @@ class GameController():
 		# if timer gets to 0 and alive, end = 1, else -1
 		self.mgd.end = 1
 
-		if self.mgd.timer >= 0:
+		if self.mgd.timer > 0:
 			self.mgd.timer -= 1
 
 		if self.mgd.projTimer == 0:
