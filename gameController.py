@@ -274,7 +274,7 @@ class GameController():
 
 			if i.dist < i.maxDist:
 				if self.pd.x == i.x and self.pd.y == i.y:
-					self.pd.hp -= 10
+					self.pd.hp -= 1
 				else:
 					temp.append(i)
 
