@@ -7,7 +7,8 @@ class PlayerData():
         self.maxHP = 10 # should be 100 (or something higher than 10)
         self.hp = self.maxHP
         self.stars = 0
-        self.score = 0
+        self.score = -1
+        self.time = 0
 
 class Player():
     def __init__(self):

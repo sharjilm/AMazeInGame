@@ -124,6 +124,7 @@ class GameController():
 			self.pd.x = 0
 			self.pd.y = 0
 			self.pd.score = -1
+			self.pd.hp = self.pd.maxHP
 
 	def mapInteraction(self):
 		for i in self.md.stars:
@@ -137,6 +138,7 @@ class GameController():
 				self.pd.y = self.mgd.entrance[1]
 				if self.minigameNum == 2:
 					self.pd.score = 0
+					self.pd.hp = -1
 
 		if self.pd.stars == 5 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			print("WIN")
