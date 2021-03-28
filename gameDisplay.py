@@ -91,10 +91,10 @@ class GameDisplay():
         s = 500
         scr = pygame.Surface((s, s), pygame.SRCALPHA)
         scr.fill((0,0,0,255))
-        c2 = (c[0] - s/2, c[1] - s/2 + self.offset)
-        c = (s/2, s/2 - self.offset)
+        center = (c[0] - s/2, c[1] - s/2 + self.offset)
+        c = (s//2, s//2 - self.offset)
         self.drawCircle(scr, col, c, r)
-        screen.blit(scr, c2)
+        screen.blit(scr, center)
 
         # scr = pygame.Surface(r, r), pygame.SRCALPHA)
         # scr.fill((255,255,255,255))
