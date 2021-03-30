@@ -205,6 +205,18 @@ class GameDisplay():
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.blue
+        if name == "de":
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
+            col = Colour.green
+        if name == "def":
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
+            col = Colour.white
         elif name == "r":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),

@@ -289,7 +289,14 @@ class GameController():
 		self.mgd.projectiles = temp
 
 	def minigame0Interaction(self):
-			pass
+
+		if self.mgd.timer == 0:
+			self.mgd.exit = (self.pd.x, self.pd.y)
+			self.mgd.end = -1
+
+		if self.mgd.timer > 0:
+			self.mgd.timer -= 1
+
 
 	def minigame1Interaction(self):
 			pass
