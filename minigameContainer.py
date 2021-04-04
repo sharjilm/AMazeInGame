@@ -196,14 +196,14 @@ def makeMg0():
 
     i = Item()
     i.name = "d"
-    i.value = 100
+    i.value = 0
     i.x = 0
     i.y = 2
     mg.items.append(i)
 
     i2 = Item()
     i2.name = "de"
-    i2.value = 100
+    i2.value = 0
     i2.x = 0
     i2.y = 6
     mg.items.append(i2)
@@ -211,8 +211,8 @@ def makeMg0():
     i3 = Item()
     i3.name = "def"
     i3.value = 100
-    i3.x = 9
-    i3.y = 0
+    i3.x = 8
+    i3.y = 1
     mg.items.append(i3)
 
     return mg
