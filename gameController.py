@@ -17,14 +17,14 @@ from gameDisplay import *
 import random
 #import dataTypes
 
-# pygame.init()
-# height = 320
-# width = 320
-# window = pygame.display.set_mode((height,width),pygame.RESIZABLE)
-# pygame.display.set_caption('AMazeInGame!')
-# screen = pygame.display.get_surface()
-# screen.convert_alpha()
-# clock = pygame.time.Clock()
+pygame.init()
+height = 320
+width = 320
+window = pygame.display.set_mode((height,width),pygame.RESIZABLE)
+pygame.display.set_caption('AMazeInGame!')
+screen = pygame.display.get_surface()
+screen.convert_alpha()
+clock = pygame.time.Clock()
 
 class GameController():
 	def __init__(self):
