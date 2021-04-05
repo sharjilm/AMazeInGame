@@ -27,5 +27,7 @@ class MovementReader():
                 self.pc.move('U')
             elif key == pygame.K_DOWN: 
                 self.pc.move('D')
+            elif key == pygame.K_SPACE:
+                self.pc.move('S')
             elif key == pygame.K_ESCAPE: 
                 exit()
