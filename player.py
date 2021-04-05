@@ -9,6 +9,7 @@ class PlayerData():
         self.stars = 0
         self.score = -1
         self.time = 0
+        self.spacebar = 0
 
 class Player():
     def __init__(self):
