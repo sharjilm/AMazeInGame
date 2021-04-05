@@ -66,6 +66,8 @@ class PlayerController():
 			self.pd.xs = -1
 		elif key == 'R':
 			self.pd.xs = 1
+		elif key == 'S':
+			self.pd.spacebar = 1
 
 		#modify movement
 		self.playerChange()
