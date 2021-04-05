@@ -10,7 +10,7 @@
 
 \[ ] Minigame 4 (Sharjil) - The user has to go through a parkour obstacle course game. They’ll be given a predetermined map randomly with a different outline for each and a different time limit. User will have to complete the course within that time frame or without falling in a pit. If the user falls or runs out of time, they’ll have to start all over again, no checkpoints.  
 
-\[ ] Minigame 5 (Youssef) - The user has to shoot x number of enemies/aliens in the minigame. As the user shoots down the aliens, their number will decrease. They will be removed from the game. In response, the aliens will fire back at the user. The user will have x number of lives and has to defeat all aliens before they shoot him x times to win.  
+\[ ] Minigame 5 (Youssef) - The user uses the spacebar to shoot a certain number of enemies and solve the maze before time runs out.
 
 ## Developers
 Jiong Hao Zhou  
