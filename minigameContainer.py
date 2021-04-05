@@ -16,6 +16,7 @@ class MinigameData():
         self.projCD = 10
         self.projTimer = 0
         self.timer = -1 # this refers to minigame 3's main timer
+        self.rockets = []
 
 class Projectile():
     def __init__(self):
@@ -69,6 +70,14 @@ class Item():
         self.value = 0
         self.x = 0
         self.y = 0
+        self.width = 10
+        self.height = 10
+        self.offset = 10
+
+class Rocket():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
         self.width = 10
         self.height = 10
         self.offset = 10
@@ -217,14 +226,45 @@ def makeMg0():
 
     return mg
 
-def makeMg1():
+def makeMg4():
+
     mg = MinigameData()
+    mg.width = 10
+    mg.height = 10
+    mg.tiles = [
+                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '1'], 
+                ['1', '0', '1', '0', '1', '0', '1', '0', '1', '0'], 
+                ['0', '1', '0', '1', '0', '1', '0', '1', '0', '1'], 
+                ['1', '0', '1', '0', '1', '0', '1', '0', '1', '0'], 
+                ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'], 
+                ['1', 'w', '1', '0', '1', 'w', '1', '0', '1', 'w'], 
+                ['0', 'w', '0', 'w', '0', 'w', '0', 'w', '0', 'w'], 
+                ['1', 'w', '1', 'w', '1', 'w', '1', 'w', '1', 'w'], 
+                ['0', 'w', '0', 'w', '0', 'w', '0', 'w', '0', 'w'], 
+                ['1', '0', '1', 'w', '1', '0', '1', 'w', '1', '0']
+                ]
 
-    mg.end = 1
+    mg.timer = 30 * 30 
+    mg.entrance = (0, 0)
+    mg.exit = (9, 9)
 
+    # create items
+    j = 0
+    k = 9
+    while j < 3:
+        for i in range(4):
+            item = Item()
+            item.name = "d"
+            item.x = k
+            item.y = i
+            item.offset = 0.3
+            mg.items.append(item)
+        j += 1
+        k += 2
+        
     return mg
 
-def makeMg4():
+def makeMg1():
     mg = MinigameData()
 
     mg.end = 1
