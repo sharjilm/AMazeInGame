@@ -164,6 +164,9 @@ class GameDisplay():
         for i in self.mgd.projectiles:
             self.drawRect(screen,Colour.bassel,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
 
+        for i in self.mgd.rockets:
+            self.drawRect(screen,Colour.bassel,(i.x*30 + i.offset,i.y*30 + i.offset, i.width, i.height))
+            
         if self.mgd.timer >= 0:
             self.drawText("time:" + str(int(self.mgd.timer/30)), Colour.white, 75, -self.offset)
 
