@@ -303,9 +303,48 @@ class GameController():
 		if self.mgd.timer > 0:
 			self.mgd.timer -= 1
 
-
-	def minigame1Interaction(self):
-			pass
-
 	def minigame4Interaction(self):
+			
+			# timer count down
+			if self.mgd.timer > 0:
+				self.mgd.timer -= 1
+
+			# items moving left
+			for i in self.mgd.items:
+				if i.x > 0:
+					i.x -= 0.05
+				
+			# create rockets when space bar is clicked
+			if self.pd.spacebar == 1:
+				self.pd.spacebar = 0
+				self.mgd.rockets.append(Rocket(self.pd.x, self.pd.y))
+
+			# rockets moving right	
+			for rocket in self.mgd.rockets:
+				rocket.x += 0.3
+			
+			# Remove rockets and items when they collide
+			removed = 0
+			for rocket in self.mgd.rockets:
+				for item in self.mgd.items:
+					if (rocket.x < item.x + item.offset and
+					    rocket.x > item.x - item.offset and
+					    rocket.y < item.y + item.offset and
+						rocket.y > item.y - item.offset):
+						self.mgd.items.remove(item)
+						removed = 1
+						break
+				if (removed == 1):
+					self.mgd.rockets.remove(rocket)
+					yes = 0
+			
+			# user wins after destroying enemy rockets before count down hits 0
+			if not self.mgd.items and self.mgd.timer > 0:
+				self.mgd.tiles[4][0] = '0'
+				self.mgd.end = 1
+			elif self.mgd.timer <= 0:
+				self.mgd.tiles[4][0] = '0'
+				self.mgd.end = -1
+	
+	def minigame1Interaction(self):
 			pass
