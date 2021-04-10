@@ -7,9 +7,8 @@ class MenuController():
     def __init__(self):
         self.mm = mainMenu.MainMenu()
         self.gameStarted = False
+        self.inSettings = False
 
-    # def displayMainMenu(self):
-    #     self.
     def createButtons(self):
         self.pb = pauseButton.PauseButton()
         self.eb = exitButton.ExitButton()
@@ -22,8 +21,11 @@ class MenuController():
         self.mm.displayButtons()
 
     def update(self):
-        self.checkInput()
-        self.displayButtons()
+        if not self.gameStarted and not self.inSettings:
+            self.checkInput()
+            self.displayButtons()
+        elif not self.gameStarted and self.inSettings:
+            self.sc.update()
 
     # def timeUp(self):
     #     self.checkButtons
@@ -62,6 +64,8 @@ class MenuController():
                 if self.mm.selected == 0: #start game button is selected
                     print("getting here")
                     self.startGame()
+                elif self.mm.selected == 1: #change settings button is selected
+                    self.openSettings()
             elif key == pygame.K_ESCAPE: 
                 exit()
 
@@ -82,5 +86,14 @@ class MenuController():
         self.createButtons()
         self.gc.startGame()
 
+    def openSettings(self):
+        self.inSettings = True
+
+    def returnToMenu(self):
+        self.inSettings = False
+
     def setGC(self, gameController):
         self.gc = gameController
+
+    def setSC(self, settingsController):
+        self.sc = settingsController
