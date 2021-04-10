@@ -309,8 +309,8 @@ class GameController():
 		if self.mgd.items == []:
 			if self.mgd.timer > 0:
 				self.mgd.end = 1
-			else:
-				self.mgd.end = -1
+		if self.mgd.timer == 0:
+			self.mgd.end = -1
 
 		# if self.mgd.timer == 0:
 		# 	self.mgd.exit = (self.pd.x, self.pd.y)
