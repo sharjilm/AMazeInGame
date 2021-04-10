@@ -33,7 +33,10 @@ class SettingsController():
 
     def volumeUpdate(self):
         self.settings.updateVolume(self.volume)
-        pygame.mixer.music.set_volume(self.volume/10)
+        try:
+            pygame.mixer.music.set_volume(self.volume/10)
+        except:
+            pass
 
     def displaySettings(self):
         self.settings.displayContent()
