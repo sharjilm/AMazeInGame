@@ -25,7 +25,7 @@ def drawText(s, col, x, y):
 class Settings:
     def __init__(self):
         self.textfont = pygame.image.load('resources%s%s' % (os.sep, 'font-12x16.png'))
-        self.volume = 5
+        self.volume = 0
 
     def displayContent(self):
         screen.fill(Colour.black)

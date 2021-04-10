@@ -21,6 +21,7 @@ def main():
     pygame.mixer.init()
     pygame.mixer.music.load("sound/menu.ogg")
     pygame.mixer.music.play(loops=-1)
+    mc.initVolume()
 
     while(True):
         if mc.gameStarted:

@@ -92,6 +92,9 @@ class MenuController():
     def returnToMenu(self):
         self.inSettings = False
 
+    def initVolume(self):
+        self.sc.volumeUpdate()
+
     def setGC(self, gameController):
         self.gc = gameController
 

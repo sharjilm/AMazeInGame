@@ -5,7 +5,7 @@ class SettingsController():
     def __init__(self):
         self.settings = settings.Settings()
         self.mc = None
-        self.volume = 5
+        self.volume = 0
 
     def update(self):
         self.checkInput()
