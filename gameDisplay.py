@@ -35,7 +35,7 @@ class Colour():
     blue = (0, 0, 255)
     brown = (165, 42, 42)
     bassel = (200, 0, 80)
-
+    jm = (200,200,0)
 
 
 class GameDisplay():
@@ -219,14 +219,24 @@ class GameDisplay():
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
-            col = Colour.white
+            col = Colour.black
+        
         elif name == "r":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
-            col = Colour.red     
+            col = Colour.red  
+
+        elif name == "colour":
+            pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
+                    (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
+                    (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
+                    (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
+            col = Colour.jm
+        
         self.drawPoly(screen, col, pts)
+
 
     def drawExit(self, rect, win):
         if win == 1:

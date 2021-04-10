@@ -17,9 +17,9 @@ def main():
     clock = pygame.time.Clock()
 
     # Does not work on virtual display (X-ming) -- use Windows instead
-    pygame.mixer.init()
-    pygame.mixer.music.load("sound/menu.ogg")
-    pygame.mixer.music.play(loops=-1)
+    # pygame.mixer.init()
+    # pygame.mixer.music.load("sound/menu.ogg")
+    # pygame.mixer.music.play(loops=-1)
 
     while(True):
         if mc.gameStarted:
