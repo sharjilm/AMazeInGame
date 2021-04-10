@@ -114,15 +114,25 @@ class GameController():
 
 		if self.inMap:
 			self.mgc.exitMinigame()
-			if self.mgd.end == 1:
-				temp = []
-				for i in self.md.stars:
-					if i[1] != self.minigameNum:
-						temp.append(i)
+			temp = []
+			for i in self.md.stars:
+				if i[1] == self.minigameNum and self.mgd.end == 1:
+					self.pd.x = i[0][0]
+					self.pd.y = i[0][1]
+				elif i[1] == self.minigameNum and self.mgd.end == -1:
+					self.pd.x = self.md.start[0]
+					self.pd.y = self.md.start[1]
+
+				if i[1] != self.minigameNum or self.mgd.end == -1:
+					temp.append(i)
 				self.md.stars = temp
+
+			# if self.mgd.end == 1:
+			# 	for i in self.md.stars:
+			# 		if i[1] != self.minigameNum:
+			# 			temp.append(i)
+			# 	self.md.stars = temp
 			self.minigameNum = -1
-			self.pd.x = 0
-			self.pd.y = 0
 			self.pd.score = -1
 			self.pd.hp = self.pd.maxHP
 
@@ -157,7 +167,7 @@ class GameController():
 		#player movement in map
 		x = self.pd.x + self.pd.xs
 		y = self.pd.y + self.pd.ys
-		if x >= 0 and x < self.md.width and y >= 0 and y < self.md.height and self.md.tiles[x][y] != 'w':
+		if x >= 0 and x < self.md.width and y >= 0 and y < self.md.height and self.md.tiles[y][x] != 'w':
 			self.pd.x += self.pd.xs
 			self.pd.y += self.pd.ys
 
@@ -211,36 +221,42 @@ class GameController():
 				self.mgd.end = 1
 			else:
 				self.mgd.end = -1
+			self.mgd.bots[0].timer = -1
 
 		# run bots
 
-		for i in self.mgd.bots:
-			if i.timer == 0:
-				x = i.path[0][0]
-				y = i.path[0][1]
-				p = ((x / abs(x)) if x != 0 else 0, (y / abs(y)) if y != 0 else 0)
-				p = (p[0] * i.speed, p[1] * i.speed)
-				i.path[0][0] -= p[0]
-				i.path[0][1] -= p[1]
-				if i.path[0] == [0, 0]:
-					del i.path[0]
-					if i.path == []:
-						for j in i.track:
-							i.path.append(j.copy())
-				i.x += p[0]
-				i.y += p[1]
-				i.timer = i.cd
+		i = self.mgd.bots[0]
 
-				temp = []
-				for j in self.mgd.items:
-					if (j.x == i.x and j.y == i.y):
-						i.score += j.value
-					else:
-						temp.append(j)
+		if i.timer == -1:
+			return
 
-				self.mgd.items = temp
-			else:
-				i.timer -= 1
+		if i.timer == 0:
+			x = i.path[0][0]
+			y = i.path[0][1]
+			p = ((x / abs(x)) if x != 0 else 0, (y / abs(y)) if y != 0 else 0)
+			p = (p[0] * i.speed, p[1] * i.speed)
+			i.path[0][0] -= p[0]
+			i.path[0][1] -= p[1]
+			if i.path[0] == [0, 0]:
+				del i.path[0]
+				# loop track
+				# if i.path == []:
+				# 	for j in i.track:
+				# 		i.path.append(j.copy())
+			i.x += p[0]
+			i.y += p[1]
+			i.timer = i.cd
+
+			temp = []
+			for j in self.mgd.items:
+				if (j.x == i.x and j.y == i.y):
+					i.score += j.value
+				else:
+					temp.append(j)
+
+			self.mgd.items = temp
+		else:
+			i.timer -= 1
 
 	def minigame3Interaction(self):
 

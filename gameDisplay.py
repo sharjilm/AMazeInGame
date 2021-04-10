@@ -68,10 +68,11 @@ class GameDisplay():
         for i in range(self.md.height):
             for j in range(self.md.width):
                 if (self.md.tiles[i][j] == '0'):
-                    self.drawRect(screen,Colour.white ,(30*i,30*j,30, 30))
+                    self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
+                elif (self.md.tiles[i][j] == 'w'):
+                    self.drawWall((30*j,30*i,30, 30))
                 else:
-                    self.drawRect(screen,Colour.black ,(30*i,30*j,30, 30))
-
+                    self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 
         for i in self.md.stars:
             self.drawStar((i[0][0]*30, i[0][1]*30, 30, 30))
@@ -140,7 +141,6 @@ class GameDisplay():
                     self.drawRect(screen,Colour.white ,(30*j,30*i,30, 30))
                 elif (self.mgd.tiles[i][j] == 'w'):
                     self.drawWall((30*j,30*i,30, 30))
-
                 else:
                     self.drawRect(screen,Colour.black ,(30*j,30*i,30, 30))
 

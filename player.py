@@ -1,7 +1,7 @@
 class PlayerData():
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 5
+        self.y = 4
         self.xs = 0
         self.ys = 0
         self.maxHP = 3 # should be 100 (or something higher than 10)
