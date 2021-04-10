@@ -18,15 +18,16 @@ def main():
     clock = pygame.time.Clock()
 
     # Does not work on virtual display (X-ming) -- use Windows instead
-    pygame.mixer.init()
-    pygame.mixer.music.load("sound/menu.ogg")
-    pygame.mixer.music.play(loops=-1)
-    mc.initVolume()
+    # pygame.mixer.init()
+    # pygame.mixer.music.load("sound/menu.ogg")
+    # pygame.mixer.music.play(loops=-1)
+    # mc.initVolume()
 
     while(True):
         if mc.gameStarted:
-            gc.pc.timeUpPlayer()
-            #mc.checkButtons()
+            mc.checkButtons()
+            if not mc.paused:
+                gc.pc.timeUpPlayer()
             # mc.checkExit()
             # mc.checkPause()
         else:

@@ -8,10 +8,13 @@ class MenuController():
         self.mm = mainMenu.MainMenu()
         self.gameStarted = False
         self.inSettings = False
+        self.paused = False
 
     def createButtons(self):
         self.pb = pauseButton.PauseButton()
         self.eb = exitButton.ExitButton()
+        self.pb.setMC(self)
+        self.eb.setMC(self)
 
     def checkButtons(self):
         self.pb.read()
@@ -76,10 +79,10 @@ class MenuController():
         pass
 
     def pause(self):
-        print("Pausing game")
+        self.paused = not self.paused
 
     def exit(self):
-        print("Exiting game")
+        exit()
 
     def startGame(self):
         self.gameStarted = True
