@@ -39,6 +39,8 @@ class PlayerController():
 		pass
 
 	def pausePlayer(self):
+		print("player paused2")
+
 		self.pause = not(self.pause)
 
 	def fetchPlayerData(self):

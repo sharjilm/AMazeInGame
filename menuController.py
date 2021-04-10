@@ -19,7 +19,6 @@ class MenuController():
     def checkButtons(self):
         self.pb.read()
         self.eb.read()
-
     def displayButtons(self):
         self.mm.displayButtons()
 
@@ -80,6 +79,7 @@ class MenuController():
 
     def pause(self):
         self.paused = not self.paused
+        self.gc.pauseGame()
 
     def exit(self):
         exit()

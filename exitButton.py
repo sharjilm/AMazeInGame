@@ -8,11 +8,11 @@ class ExitButton:
         self.mc = mc
 
     def read(self):
-        pygame.event.pump()
+        #pygame.event.pump()
         event = pygame.event.poll()
         if event.type == pygame.KEYDOWN:
             key = event.key
-            if key == pygame.K_e: 
+            if key == pygame.K_ESCAPE: 
                 self.mc.exit()
             else:
                 pygame.event.post(event)

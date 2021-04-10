@@ -110,7 +110,7 @@ def makeMg2():
     for j in b.track:
         b.path.append(j.copy())
     b.score = 0
-    b.cd = 1
+    b.cd = 2
     mg.bots.append(b)
 
     items = (("d", 100, 0, 2), ("d", 100, 2, 2), ("d", 100, 4, 0), ("d", 100, 6, 2),
