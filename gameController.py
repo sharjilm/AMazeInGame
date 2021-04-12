@@ -15,6 +15,7 @@ from minigameController import *
 from playerController import *
 from gameDisplay import *
 import random
+import collections
 #import dataTypes
 
 pygame.init()
@@ -207,6 +208,7 @@ class GameController():
 		for i in self.mgd.items:
 			if (i.x == self.pd.x and i.y == self.pd.y):
 				self.pd.score += i.value
+				i.collected = 1
 			else:
 				temp.append(i)
 
@@ -226,11 +228,23 @@ class GameController():
 		# run bots
 
 		i = self.mgd.bots[0]
-
 		if i.timer == -1:
 			return
 
-		if i.timer == 0:
+		# if (i.target == None or i.target.collected == 1) and i.path == []:
+		#if (i.target == None) and i.path == []:
+		# Get target
+		if (i.target == None or i.target.collected == 1):
+			i.path = []
+			# print("finding new target")
+			# i.path = self.findPath([], 10)
+			i.path = self.findPath()
+
+			# if i.path == None:
+			#  	i.path = []
+			# print("target path  ", i.path)
+
+		if i.timer == 0 and i.path != []:
 			x = i.path[0][0]
 			y = i.path[0][1]
 			p = ((x / abs(x)) if x != 0 else 0, (y / abs(y)) if y != 0 else 0)
@@ -251,12 +265,194 @@ class GameController():
 			for j in self.mgd.items:
 				if (j.x == i.x and j.y == i.y):
 					i.score += j.value
+					j.collected = 1
 				else:
 					temp.append(j)
 
 			self.mgd.items = temp
 		else:
 			i.timer -= 1
+
+	#https://stackoverflow.com/questions/47896461/get-shortest-path-to-a-cell-in-a-2d-array-in-python
+	def bfs(self, grid, start, goal):
+		queue = collections.deque([[start]])
+		seen = set([start])
+		width = self.mgd.width
+		height = self.mgd.height
+
+		while queue:
+			path = queue.popleft()
+			x, y = (int) (path[-1][0]), (int) (path[-1][1])
+			if (x, y) == goal:
+				#print("found ", x, y)
+				return path
+			for x2, y2 in ((x+1,y), (x-1,y), (x,y+1), (x,y-1)):
+				if 0 <= x2 < width and 0 <= y2 < height and grid[y2][x2] != 'w' and (x2, y2) not in seen:
+					queue.append(path + [(x2, y2)])
+					seen.add((x2, y2))
+
+	def findPath(self):
+		paths = []
+		grid = self.mgd.tiles
+		start = (self.mgd.bots[0].x, self.mgd.bots[0].y)
+		# find shortest path to all items
+		for i in self.mgd.items:
+			goal = (i.x, i.y)
+			paths.append(self.bfs(grid, start, goal))
+
+		# i = self.mgd.items[0]
+		# goal = (i.x, i.y)
+		# paths.append(self.bfs(grid, start, goal))
+		# del paths[-1][0]
+
+		# for j in range(len(paths)):
+		# 	p = [paths[j][0]]
+		# 	z = paths[j][0]
+		# 	for k in paths[j]:
+		# 		if k[0] != z[0] and k[1] != z[1]:
+		# 			print("change direction")
+		# 			z = k
+		# 			p.append(k)
+		# 	paths[j] = p
+
+		paths = self.filter(paths)
+
+		if len(paths) == 0:
+			return []
+		shortest = paths[0]
+		
+		for i in paths:
+			# print(i)
+			if self.length(i) < self.length(shortest):
+				shortest = i
+
+		# print('shortest ', shortest)
+		item = self.mgd.items[paths.index(shortest)]
+		self.mgd.bots[0].target = item
+		# print("going for ", item.x, item.y)
+
+		return shortest
+
+	def length(self, path):
+		s = 0
+		if len(path) == 0:
+			return 0
+		for i in path:
+			s += abs(i[0]) + abs(i[1])
+		
+		return s
+
+	def filter(self, paths):
+		# convert each path from coordinate to relative directions
+		path = []
+		pos = [self.mgd.bots[0].x, self.mgd.bots[0].y]
+		for i in paths:
+			p = []
+			for j in i:
+				diff = [j[0] - pos[0], j[1] - pos[1]]
+				pos = [pos[0] + diff[0], pos[1] + diff[1]]
+
+				if len(p) == 0:
+					p.append(diff)
+				elif diff[0] == self.magnitude(p[-1])[0] and diff[1] == self.magnitude(p[-1])[1]:
+					#print("extend path")
+					p[-1] = [p[-1][0] + diff[0], p[-1][1] + diff[1]]
+					# return []
+				# elif i[0] == -1 * self.magnitude(p[-1])[0] and i[1] == -1 * self.magnitude(p[-1])[1]:
+				# 	print("trace back ", p, " ", i, " ", d)
+				else:
+					p.append(diff)
+					# print("change direction ", p, " ", i, " ", d)
+			p.pop(0)
+			path.append(p)
+
+		return path
+
+	# 	if d <= 0:
+	# 		#print("terminate	")
+	# 		return []
+
+	# 	print("find path with ", path, " ", d)
+
+	# 	for i in [[0, -1], [1, 0], [0, 1], [-1, 0]]:
+	# 		p = []
+	# 		for j in path:
+	# 			p.append(j.copy())
+
+	# 		if len(p) == 0:
+	# 			print("starting path", " ", d)
+	# 			p.append(i)
+	# 		elif i[0] == self.magnitude(p[-1])[0] and i[1] == self.magnitude(p[-1])[1]:
+	# 			#print("extend path")
+	# 			p[-1] = [p[-1][0] + i[0], p[-1][1] + i[1]]
+	# 			# return []
+	# 		elif i[0] == -1 * self.magnitude(p[-1])[0] and i[1] == -1 * self.magnitude(p[-1])[1]:
+	# 			print("trace back ", p, " ", i, " ", d)
+	# 		else:
+	# 			p.append(i)
+	# 			print("change direction ", p, " ", i, " ", d)
+
+	# 		item = self.hasItem(p)
+	# 		if item != None:
+	# 			print(p, " item found", " ", d)
+	# 			self.mgd.bots[0].target = item
+	# 			return (p, 1)
+
+	# 		elif self.valid(p):
+	# 			#print(p, "  is valid")
+	# 			p = self.findPath(p, d - 1)
+	# 			if p[1] == 1:
+	# 				return (p[0], 1)
+	# 		# else:
+	# 		# 	#print(p, "  is not valid")
+	# 		# 	return []
+
+	# 	#p = self.findPath(p)
+	# 	# if p == []:
+	# 	#  	return []
+
+	# 	return (p, 0)
+
+	def magnitude(self, movement):
+		x = movement[0]
+		y = movement[1]
+		return [x // abs(x) if x != 0 else 0, y // abs(y) if y != 0 else 0]
+
+	# 	# make current path
+	# 	# check nearby tiles, update path
+	# 	# if wall or invalid, return none path
+	# 	# if last direction is opposite to current, return none path
+	# 	# if item, set target and return complete path
+	# 	# else, recurse
+
+	# def valid(self, movement):
+	# 	x = self.mgd.bots[0].x
+	# 	y = self.mgd.bots[0].y
+
+	# 	for i in movement:
+	# 		x = (int) (x + i[0])
+	# 		y = (int) (y + i[1])
+	# 		#print("location ", x, y)
+	# 		if x < 0 or x >= self.mgd.width or y < 0 or y >= self.mgd.height \
+	# 			or self.mgd.tiles[y][x] == "w":
+	# 			return False
+
+	# 	return True
+
+	# def hasItem(self, movement):
+	# 	x = self.mgd.bots[0].x
+	# 	y = self.mgd.bots[0].y
+
+	# 	for i in movement:
+	# 		x += i[0]
+	# 		y += i[1]
+		
+	# 	for i in self.mgd.items:
+	# 		if x == i.x and y == i.y:
+	# 			return i
+
+	# 	return None
+
 
 	def minigame3Interaction(self):
 

@@ -62,7 +62,7 @@ class Bot():
         self.cd = 30
         self.timer = 0
         self.score = -1
-
+        self.target = None
 
 class Item():
     def __init__(self):
@@ -73,6 +73,7 @@ class Item():
         self.width = 10
         self.height = 10
         self.offset = 10
+        self.collected = 0
 
 class Rocket():
     def __init__(self, x, y):
@@ -103,14 +104,15 @@ def makeMg2():
     b.name = "1"
     b.x = 9
     b.y = 0
-    b.track = [[-3, 0], [0, 5], [-1, 0], [3, 0], [0, 1], [1, 0], [0, -4], [0, 5], [-3, 0], 
-                [0, 2], [1, 0], [-7, 0], [0, -1], [0, 1], [4, 0], [0, -2], [-3, 0], [0, -2], 
-                [-1, 0], [0, -3], [2, 0], [0, -2], [2, 0]]
+    # b.track = [[-3, 0], [0, 5], [-1, 0], [3, 0], [0, 1], [1, 0], [0, -4], [0, 5], [-3, 0], 
+    #             [0, 2], [1, 0], [-7, 0], [0, -1], [0, 1], [4, 0], [0, -2], [-3, 0], [0, -2], 
+    #             [-1, 0], [0, -3], [2, 0], [0, -2], [2, 0]]
     b.speed = 0.25
-    for j in b.track:
-        b.path.append(j.copy())
+    # for j in b.track:
+    #     b.path.append(j.copy())
+    b.path = []
     b.score = 0
-    b.cd = 2
+    b.cd = 3
     mg.bots.append(b)
 
     items = (("d", 100, 0, 2), ("d", 100, 2, 2), ("d", 100, 4, 0), ("d", 100, 6, 2),
