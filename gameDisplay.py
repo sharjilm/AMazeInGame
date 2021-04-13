@@ -117,7 +117,9 @@ class GameDisplay():
 
     def drawPlayer(self):
         if not(self.inGame):
+            self.drawText(str(self.pd.time//30), Colour.red, width - 35, -self.offset)
             return
+
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
         self.drawText(str(self.pd.time//30), Colour.red, width - 35, -self.offset)
         #self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)

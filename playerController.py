@@ -55,7 +55,8 @@ class PlayerController():
 	def timeUpPlayer(self):
 		self.m.read()
 		self.pd = self.p.readPlayer()
-		self.pd.time += 1
+		if not(self.pause):
+			self.pd.time += 1
 		self.playerChange()
 
 	def move(self, key):

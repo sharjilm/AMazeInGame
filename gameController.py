@@ -154,7 +154,7 @@ class GameController():
 		if self.pd.stars == 5 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			self.md.win = 1
 			self.pd.stars = 0
-			self.pauseGame()
+			self.pc.pausePlayer()
 			# print("WIN")
 			# exit()
 
