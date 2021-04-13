@@ -45,6 +45,7 @@ class GameDisplay():
         #self.mgd = minigame.MinigameData()
         self.textfont = pygame.image.load('resources%s%s' % (os.sep, 'font-12x16.png'))
         self.offset = 30
+        self.inGame = True
 
     def displayMap(self, playerData, mapData):
         self.pd = playerData
@@ -86,7 +87,9 @@ class GameDisplay():
             self.drawStar((i*30, -self.offset + 5, 20, 20))
 
         if self.md.win == 1:
-            self.drawStar((5*30 // 2, 5 * 30 // 2 + self.offset, 5*30, 5*30))
+            self.inGame = False
+            screen.fill(Colour.black)
+            self.drawStar((5*30 // 2, 3 * 30 // 2 + self.offset, 5*30, 5*30))
 
     def drawCamera(self):
         col = (255, 0, 0, 0)
@@ -113,6 +116,8 @@ class GameDisplay():
 
 
     def drawPlayer(self):
+        if not(self.inGame):
+            return
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
         self.drawText(str(self.pd.time//30), Colour.red, width - 35, -self.offset)
         #self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
