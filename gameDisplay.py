@@ -202,33 +202,33 @@ class GameDisplay():
     def drawItem(self, name, rect):
         #self.drawRect(screen,Colour.white, rect)
         #self.drawText("i", Colour.red, rect[0], rect[1])
-        if name == "d":
+        if name == "blue":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.blue
-        if name == "de":
+        if name == "green":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.green
-        if name == "def":
+        if name == "black":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.black
         
-        elif name == "r":
+        elif name == "red":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.red  
 
-        elif name == "colour":
+        elif name == "golden":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
