@@ -590,6 +590,9 @@ class GameController():
 				self.mgd.end = -1
 		elif self.mgd.items == [] and isBlocked == False:
 			self.mgd.end = -1
+		elif self.mgd.timer == 0:
+			self.mgd.exit = (self.pd.x, self.pd.y)
+			self.mgd.end = -1
 
 		if self.mgd.timer > 0:
 			self.mgd.timer -= 1	
