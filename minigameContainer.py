@@ -9,6 +9,7 @@ class MinigameData():
         self.entrance = (0, 0)
         self.exit = (4, 1)
         self.end = 0
+        self.currentPos = [0, 0]
 
         self.bots = []
         self.items = []
@@ -265,7 +266,7 @@ def makeMg1():
                 ['1', '0', '1', '0', '1', '0', '1', '0', 'w', '0']
                 ]
 
-    mg.timer = 30 * 30 
+    mg.timer = 25 * 30 
     mg.entrance = (0, 0)
     mg.exit = (9, 9)
 
@@ -280,5 +281,11 @@ def makeMg1():
     i2.x = 5
     i2.y = 0
     mg.items.append(i2)
+
+    i3 = Item()
+    i3.name = "r"
+    i3.x = 9
+    i3.y = 2
+    mg.items.append(i3)
 
     return mg

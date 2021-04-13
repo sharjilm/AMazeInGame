@@ -559,11 +559,37 @@ class GameController():
 				self.mgd.end = -1
 	
 	def minigame1Interaction(self):
-		if self.mgd.items == []:
+		
+		#player moves left
+		if self.pd.x < self.mgd.currentPos[0]:
+			self.mgd.tiles[self.pd.y][self.mgd.currentPos[0]] = 'w'
+			self.mgd.currentPos[0] = self.pd.x
+		elif self.pd.x > self.mgd.currentPos[0]:
+		#player moves right
+			self.mgd.tiles[self.pd.y][self.mgd.currentPos[0]] = 'w'
+			self.mgd.currentPos[0] = self.pd.x
+		#player moves up
+		elif self.pd.y < self.mgd.currentPos[1]:
+			self.mgd.tiles[self.mgd.currentPos[1]][self.pd.x] = 'w'
+			self.mgd.currentPos[1] = self.pd.y
+		#player moves down
+		elif self.pd.y > self.mgd.currentPos[1]:
+			self.mgd.tiles[self.mgd.currentPos[1]][self.pd.x] = 'w'
+			self.mgd.currentPos[1] = self.pd.y
+
+		isBlocked = True
+		for i in range(len(self.mgd.tiles)):
+			for j in range(len(self.mgd.tiles[i])-1):
+				if self.mgd.tiles[i][j] != 'w':
+					isBlocked = False
+
+		if self.mgd.items == [] and isBlocked == True:
 			if self.mgd.timer > 0:
 				self.mgd.end = 1
 			else:
 				self.mgd.end = -1
+		elif self.mgd.items == [] and isBlocked == False:
+			self.mgd.end = -1
 
 		if self.mgd.timer > 0:
 			self.mgd.timer -= 1	
