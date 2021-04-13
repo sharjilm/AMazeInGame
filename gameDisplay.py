@@ -85,6 +85,9 @@ class GameDisplay():
         for i in range(self.pd.stars):
             self.drawStar((i*30, -self.offset + 5, 20, 20))
 
+        if self.md.win == 1:
+            self.drawStar((5*30 // 2, 5 * 30 // 2 + self.offset, 5*30, 5*30))
+
     def drawCamera(self):
         col = (255, 0, 0, 0)
         c = (self.pd.x*30 + 15, self.pd.y*30 + 15)
@@ -111,7 +114,7 @@ class GameDisplay():
 
     def drawPlayer(self):
         self.drawRect(screen,Colour.green,(self.pd.x*30 + 10,self.pd.y*30 + 10,10,10))
-        self.drawText(str(self.pd.time//30), Colour.red, width - 50, -self.offset)
+        self.drawText(str(self.pd.time//30), Colour.red, width - 35, -self.offset)
         #self.drawText("hp: " + str(self.pd.hp), Colour.white, 0, -self.offset)
         #self.drawText("score: " + str(self.pd.score), Colour.white, 75, -self.offset)
 
@@ -156,6 +159,11 @@ class GameDisplay():
         for i in self.mgd.items:
             self.drawItem(i.name, (i.x*30,i.y*30,30, 30))
 
+        c = 0
+        for i in self.mgd.items2:
+            c += 1
+            self.drawItem(i.name, (140 + 20*c,-self.offset, 10, 15))
+
         for i in self.mgd.bots:
             self.drawRect(screen,Colour.red,(i.x*30 + i.offset,i.y*30 + i.offset,i.width,i.height))
             if i.score >= 0:
@@ -168,7 +176,7 @@ class GameDisplay():
             self.drawRect(screen,Colour.bassel,(i.x*30 + i.offset,i.y*30 + i.offset, i.width, i.height))
             
         if self.mgd.timer >= 0:
-            self.drawText("time:" + str(int(self.mgd.timer/30)), Colour.white, 75, -self.offset)
+            self.drawText("time:" + str(int(self.mgd.timer/30)), Colour.white, 60, -self.offset)
 
     def drawText(self, s, col, x, y):
         fontsize = font.size(s)
@@ -214,12 +222,12 @@ class GameDisplay():
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
             col = Colour.green
-        if name == "black":
+        if name == "brown":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 
                     (rect[0] + rect[2]/2 + 10, rect[1] + rect[3]/2),
                     (rect[0] + rect[2]/2, rect[1] + rect[3]*5/6),
                     (rect[0] + rect[2]/2 - 10, rect[1] + rect[3]/2)]
-            col = Colour.black
+            col = Colour.brown
         
         elif name == "red":
             pts = [(rect[0] + rect[2]/2, rect[1] + rect[3]/6), 

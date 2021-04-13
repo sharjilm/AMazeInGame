@@ -42,7 +42,16 @@ class MainMenu:
         self.selected = 0
 
     def displayButtons(self):
+        s = "AMazeInGame!"
+        col = (0, 255, 0)
+        x = 75
+        y = 25
         screen.fill(Colour.black)
+        fontsize = font.size(s)
+        result = pygame.Surface((fontsize[0], fontsize[1]), pygame.SRCALPHA)
+        col = (col[0], col[1], col[2], 255)
+        result.blit(font.render(self.textfont,s,col), (0,0))
+        screen.blit(result,(x,y + self.offset))
         for button in self.buttons:
             button.display()
         pygame.display.flip()

@@ -20,7 +20,6 @@ class MovementReader():
 
             if key == pygame.K_LEFT: 
                 self.pc.move('L')
-                print("move left")
             elif key == pygame.K_RIGHT: 
                 self.pc.move('R')
             elif key == pygame.K_UP: 

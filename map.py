@@ -29,6 +29,7 @@ class MapData():
         self.stars = [((0, 6), 0), ((4, 9), 1), ((8, 2), 2), ((3, 1), 3), ((9, 7), 4)]
         self.start = (5, 4)
         self.exit = (1, 3)
+        self.win = 0
 
 class Map():
     def __init__(self):

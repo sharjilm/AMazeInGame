@@ -13,6 +13,7 @@ class MinigameData():
 
         self.bots = []
         self.items = []
+        self.items2 = []
         self.projectiles = []
         self.projCD = 10
         self.projTimer = 0
@@ -118,7 +119,7 @@ def makeMg2():
 
     items = (("blue", 100, 0, 2), ("blue", 100, 2, 2), ("blue", 100, 4, 0), ("blue", 100, 6, 2),
             ("blue", 100, 8, 6), ("green", 500, 1, 7), ("green", 500, 7, 9), ("green", 500, 9, 2), 
-            ("black", 1000, 5, 5), ("black", 1000, 0, 8))
+            ("brown", 1000, 5, 5), ("brown", 1000, 0, 8))
 
     for i in items:
         j = Item()
@@ -192,7 +193,7 @@ def makeMg0():
     mg.items.append(i2)
 
     i3 = Item()
-    i3.name = "black"
+    i3.name = "brown"
     i3.x = 7
     i3.y = 1
     mg.items.append(i3)

@@ -152,8 +152,10 @@ class GameController():
 					self.pd.hp = -1
 
 		if self.pd.stars == 5 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
-			print("WIN")
-			exit()
+			self.md.win = 1
+			self.md.starts = 0
+			# print("WIN")
+			# exit()
 
 	def minigameInteraction(self):
 
@@ -418,13 +420,6 @@ class GameController():
 		y = movement[1]
 		return [x // abs(x) if x != 0 else 0, y // abs(y) if y != 0 else 0]
 
-	# 	# make current path
-	# 	# check nearby tiles, update path
-	# 	# if wall or invalid, return none path
-	# 	# if last direction is opposite to current, return none path
-	# 	# if item, set target and return complete path
-	# 	# else, recurse
-
 	# def valid(self, movement):
 	# 	x = self.mgd.bots[0].x
 	# 	y = self.mgd.bots[0].y
@@ -488,7 +483,7 @@ class GameController():
 				i.y += i.ys
 				i.dist += 1
 				i.timer = i.cd
-				print("proj len", len(self.mgd.projectiles))
+				# print("proj len", len(self.mgd.projectiles))
 			else:
 				i.timer -= 1
 
@@ -506,19 +501,19 @@ class GameController():
 			self.l1 = self.mgd.items
 			print(self.l1[0].name,self.l1[1].name,self.l1[2].name,self.l1[3].name,self.l1[4].name)
 			random.shuffle(self.mgd.items)
-			self.l2 = self.mgd.items
-			print(self.l2[0].name,self.l2[1].name,self.l2[2].name,self.l2[3].name,self.l2[4].name)
+			self.mgd.items2 = self.mgd.items
+			print(self.mgd.items2[0].name,self.mgd.items2[1].name,self.mgd.items2[2].name,self.mgd.items2[3].name,self.mgd.items2[4].name)
 		if len(self.mgd.items) == 4:
-			if self.l2[0] in self.mgd.items:
+			if self.mgd.items2[0] in self.mgd.items:
 				self.mgd.timer = 0
 		elif len(self.mgd.items) == 3:
-			if self.l2[1] in self.mgd.items:
+			if self.mgd.items2[1] in self.mgd.items:
 				self.mgd.timer = 0
 		elif len(self.mgd.items) == 2:
-			if self.l2[2] in self.mgd.items:
+			if self.mgd.items2[2] in self.mgd.items:
 				self.mgd.timer = 0
 		elif len(self.mgd.items) == 1:
-			if self.l2[3] in self.mgd.items:
+			if self.mgd.items2[3] in self.mgd.items:
 				self.mgd.timer = 0
 
 		if self.mgd.items == []:

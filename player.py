@@ -8,7 +8,7 @@ class PlayerData():
         self.hp = self.maxHP
         self.stars = 0
         self.score = -1
-        self.time = 0
+        self.time = 0 * 30
         self.spacebar = 0
 
 class Player():
