@@ -502,17 +502,33 @@ class GameController():
 
 	def minigame0Interaction(self):
 
+		if self.mgd.timer == 40*30:
+			self.l1 = self.mgd.items
+			print(self.l1[0].name,self.l1[1].name,self.l1[2].name,self.l1[3].name,self.l1[4].name)
+			random.shuffle(self.mgd.items)
+			self.l2 = self.mgd.items
+			print(self.l2[0].name,self.l2[1].name,self.l2[2].name,self.l2[3].name,self.l2[4].name)
+		if len(self.mgd.items) == 4:
+			if self.l2[0] in self.mgd.items:
+				self.mgd.timer = 0
+		elif len(self.mgd.items) == 3:
+			if self.l2[1] in self.mgd.items:
+				self.mgd.timer = 0
+		elif len(self.mgd.items) == 2:
+			if self.l2[2] in self.mgd.items:
+				self.mgd.timer = 0
+		elif len(self.mgd.items) == 1:
+			if self.l2[3] in self.mgd.items:
+				self.mgd.timer = 0
+
 		if self.mgd.items == []:
 			if self.mgd.timer > 0:
 				self.mgd.end = 1
 		if self.mgd.timer == 0:
 			self.mgd.end = -1
 
-		# if self.mgd.timer == 0:
-		# 	self.mgd.exit = (self.pd.x, self.pd.y)
-		# 	self.mgd.end = -1
-
 		if self.mgd.timer > 0:
+
 			self.mgd.timer -= 1
 
 	def minigame4Interaction(self):

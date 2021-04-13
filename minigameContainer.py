@@ -116,9 +116,9 @@ def makeMg2():
     b.cd = 3
     mg.bots.append(b)
 
-    items = (("d", 100, 0, 2), ("d", 100, 2, 2), ("d", 100, 4, 0), ("d", 100, 6, 2),
-            ("d", 100, 8, 6), ("de", 500, 1, 7), ("de", 500, 7, 9), ("de", 500, 9, 2), 
-            ("def", 1000, 5, 5), ("def", 1000, 0, 8))
+    items = (("blue", 100, 0, 2), ("blue", 100, 2, 2), ("blue", 100, 4, 0), ("blue", 100, 6, 2),
+            ("blue", 100, 8, 6), ("green", 500, 1, 7), ("green", 500, 7, 9), ("green", 500, 9, 2), 
+            ("black", 1000, 5, 5), ("black", 1000, 0, 8))
 
     for i in items:
         j = Item()
@@ -180,31 +180,31 @@ def makeMg0():
     mg.exit = (9, 0)
 
     i = Item()
-    i.name = "d"
+    i.name = "blue"
     i.x = 0
     i.y = 2
     mg.items.append(i)
 
     i2 = Item()
-    i2.name = "de"
+    i2.name = "green"
     i2.x = 3
     i2.y = 8
     mg.items.append(i2)
 
     i3 = Item()
-    i3.name = "def"
+    i3.name = "black"
     i3.x = 7
     i3.y = 1
     mg.items.append(i3)
 
     i4 = Item()
-    i4.name = "r"
+    i4.name = "red"
     i4.x = 9
     i4.y = 8
     mg.items.append(i4)
 
     i5 = Item()
-    i5.name = "colour"
+    i5.name = "golden"
     i5.x = 6
     i5.y = 4
     mg.items.append(i5)
@@ -239,7 +239,7 @@ def makeMg4():
     while j < 3:
         for i in range(4):
             item = Item()
-            item.name = "d"
+            item.name = "blue"
             item.x = k
             item.y = i
             item.offset = 0.3
@@ -271,19 +271,19 @@ def makeMg1():
     mg.exit = (9, 9)
 
     i = Item()
-    i.name = "d"
+    i.name = "blue"
     i.x = 2
     i.y = 5
     mg.items.append(i)
 
     i2 = Item()
-    i2.name = "de"
+    i2.name = "green"
     i2.x = 5
     i2.y = 0
     mg.items.append(i2)
 
     i3 = Item()
-    i3.name = "r"
+    i3.name = "red"
     i3.x = 9
     i3.y = 2
     mg.items.append(i3)
