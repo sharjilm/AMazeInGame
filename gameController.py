@@ -611,4 +611,4 @@ class GameController():
 			self.mgd.end = -1
 
 		if self.mgd.timer > 0:
-			self.mgd.timer -= 1	
+			self.mgd.timer -= 1
