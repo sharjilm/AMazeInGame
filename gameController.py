@@ -95,17 +95,12 @@ class GameController():
 			self.mgc.startMinigame(self.minigameNum)
 
 	def pmgInteraction(self):
+
 		self.playerMgInteraction()
-		if self.minigameNum == 0:
-			self.minigame0Interaction()
-		elif self.minigameNum == 1:
-			self.minigame1Interaction()
-		elif self.minigameNum == 2:
-			self.minigame2Interaction()
-		elif self.minigameNum == 3:
-			self.minigame3Interaction()
-		elif self.minigameNum == 4:
-			self.minigame4Interaction()
+		funcs = [self.minigame0Interaction, self.minigame1Interaction, self.minigame2Interaction, 
+				self.minigame3Interaction, self.minigame4Interaction]
+		f = funcs[self.minigameNum]
+		f()
 
 		self.mgc.updateMinigameData(self.minigameNum, self.mgd)
 		self.pc.updatePlayerData(self.pd)
@@ -151,7 +146,7 @@ class GameController():
 					self.pd.score = 0
 					self.pd.hp = -1
 
-		if self.pd.stars == 5 and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
+		if self.pd.stars == self.md.numberOfStars and self.pd.x == self.md.exit[0] and self.pd.y == self.md.exit[1]:
 			self.md.win = 1
 			self.pd.stars = 0
 			self.pc.pausePlayer()

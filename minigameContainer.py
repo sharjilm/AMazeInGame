@@ -85,6 +85,11 @@ class Rocket():
         self.height = 10
         self.offset = 10
 
+def makeMg(minigameNum):
+    funcs = [makeMg0, makeMg1, makeMg2, makeMg3, makeMg4]
+    f = funcs[minigameNum]
+    return f()
+
 def makeMg2():
     mg = MinigameData()
     mg.width = 10

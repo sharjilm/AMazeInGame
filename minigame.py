@@ -4,11 +4,12 @@ class Minigame():
     def __init__(self):
         #self.md = MinigameData()
         #self.g = [minigameContainer.MinigameData()]
-        self.g = [minigameContainer.makeMg0(), 
-                minigameContainer.makeMg1(),
-                minigameContainer.makeMg2(), 
-                minigameContainer.makeMg3(),
-                minigameContainer.makeMg4()]
+        minigameNum = 5
+        self.g = []
+        for i in range(5):
+            self.g.append(i)
+        for i in range(5):
+            self.reset(i)
 
 
     def readMinigame(self, minigameNum):
@@ -18,13 +19,15 @@ class Minigame():
         self.g[minigameNum] = minigameData
 
     def reset(self, minigameNum):
-        if minigameNum == 0:
-            self.g[minigameNum] = minigameContainer.makeMg0()
-        elif minigameNum == 1:
-            self.g[minigameNum] = minigameContainer.makeMg1()
-        elif minigameNum == 2:
-            self.g[minigameNum] = minigameContainer.makeMg2()
-        elif minigameNum == 3:
-            self.g[minigameNum] = minigameContainer.makeMg3()
-        elif minigameNum == 4:
-            self.g[minigameNum] = minigameContainer.makeMg4()
+        self.g[minigameNum] = minigameContainer.makeMg(minigameNum)
+
+        # if minigameNum == 0:
+        #     self.g[minigameNum] = minigameContainer.makeMg0()
+        # elif minigameNum == 1:
+        #     self.g[minigameNum] = minigameContainer.makeMg1()
+        # elif minigameNum == 2:
+        #     self.g[minigameNum] = minigameContainer.makeMg2()
+        # elif minigameNum == 3:
+        #     self.g[minigameNum] = minigameContainer.makeMg3()
+        # elif minigameNum == 4:
+        #     self.g[minigameNum] = minigameContainer.makeMg4()
