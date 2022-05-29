@@ -1,5 +1,5 @@
 # AMazeInGame
-3A04 -- final project for software architectural design
+A program that was developed as a final project for the software architectural design course (SFWRENG 3A04). In this program, the user has to complete 5 minigames to collect the stars which are needed to complete the game. This game was written in Python using the Pygame module.
 
 ## Todo
 \[ ] Minigame 1 (Niyatha) - Player has to collect objects scattered around minigame map before time runs out.
